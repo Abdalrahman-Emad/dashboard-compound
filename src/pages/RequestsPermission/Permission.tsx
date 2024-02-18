@@ -12,8 +12,6 @@ interface WorkerData {
     [key: string]: string;
 }
 
-
-
 interface PermissionForm {
     laborName: string;
     projectName: string;
@@ -23,11 +21,12 @@ interface PermissionForm {
     time: string;
     workerData: WorkerData[];
     reason: string;
+    status: string;
 }
 
 const Permission: React.FC = () => {
     const [permitType, setPermitType] = useState<string>('');
-    
+
     const [formData, setFormData] = useState<PermissionForm>({
         laborName: '',
         unitName: '',
@@ -37,6 +36,7 @@ const Permission: React.FC = () => {
         time: '',
         workerData: [{ firstName: '', lastName: '', image: '', idCardPhoto: '', reason: '' }],
         reason: '',
+        status: '',
     });
 
     const handlePermitTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -47,7 +47,7 @@ const Permission: React.FC = () => {
         e.preventDefault();
         console.log('Form submitted:', formData);
     };
-    
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -58,7 +58,6 @@ const Permission: React.FC = () => {
 
     const workerLabel = permitType === 'visitor' ? 'Visitor' : 'Worker';
 
-    
     const handleAddWorker = () => {
         setFormData((prevFormData) => ({
             ...prevFormData,
@@ -190,32 +189,46 @@ const Permission: React.FC = () => {
                                                 />
                                             </div>
                                             <div className="col-md-6">
-                                                <label htmlFor="date" className="form-label">
-                                                    Date:
+                                                <label htmlFor="status" className="form-label">
+                                                    Status:
                                                 </label>
-                                                <input
-                                                    type="date"
-                                                    id="date"
-                                                    name="date"
-                                                    className="form-control"
-                                                    value={formData.date}
-                                                    onChange={handleChange}
-                                                />
+                                                <select id="status" className="form-select" value={formData.status}>
+                                                    <option value="">Select status</option>
+                                                    <option value="active">Active</option>
+                                                    <option value="inactive">Inactive</option>
+                                                    <option value="pending">Pending</option>
+
+                                                    {/* Add more options as needed */}
+                                                </select>
                                             </div>
-                                        </div>
-                                        <div className="row mb-3">
-                                            <div className="col-md-6">
-                                                <label htmlFor="time" className="form-label">
-                                                    Time:
-                                                </label>
-                                                <input
-                                                    type="time"
-                                                    id="time"
-                                                    name="time"
-                                                    className="form-control"
-                                                    value={formData.time}
-                                                    onChange={handleChange}
-                                                />
+
+                                            <div className="row">
+                                                <div className="col-md-6">
+                                                    <label htmlFor="date" className="form-label">
+                                                        Date:
+                                                    </label>
+                                                    <input
+                                                        type="date"
+                                                        id="date"
+                                                        name="date"
+                                                        className="form-control"
+                                                        value={formData.date}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <label htmlFor="time" className="form-label">
+                                                        Time:
+                                                    </label>
+                                                    <input
+                                                        type="time"
+                                                        id="time"
+                                                        name="time"
+                                                        className="form-control"
+                                                        value={formData.time}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                         {formData.workerData.map((worker, index) => (

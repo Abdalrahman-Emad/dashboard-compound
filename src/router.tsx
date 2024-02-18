@@ -63,7 +63,6 @@ import SecurityRequestsPage from './pages/RequestsPermission/SecurityRequestsPag
 import AddUnitsPage from './pages/MyCommunity/AddUnitsPage';
 import UnitDetailesPage from './pages/MyCommunity/UnitDetailesPage';
 import ComplaintsDetailesPage from './pages/FacilityManagement/ComplaintsDetailesPage';
-import Visitors from './pages/Visitors/Visitors';
 import Permission from './pages/RequestsPermission/Permission';
 import PermissionView from './pages/RequestsPermission/PermissionView';
 import News from './pages/SocialCommunication/News';
@@ -98,17 +97,6 @@ const router = createBrowserRouter([
             {
                 path: 'settings',
                 element: <SettingsPage />,
-            },
-            {
-                path: 'Visitors',
-                children:[
-                    {
-                        path:'',
-                        element:<Visitors/>
-                    },
-                    
-                ]
-                
             },
 
             {
