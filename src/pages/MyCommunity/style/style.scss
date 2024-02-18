@@ -1,0 +1,15 @@
+.fieldsContainer{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .textFilds{
+        width: 48% !important;
+    }
+}
+@media screen and (max-width: 768px) {
+    .fieldsContainer{
+        .textFilds{
+            width: 100% !important;
+        }
+    }
+}

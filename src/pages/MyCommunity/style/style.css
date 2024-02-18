@@ -1,0 +1,14 @@
+.fieldsContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.fieldsContainer .textFilds {
+  width: 48% !important;
+}
+
+@media screen and (max-width: 768px) {
+  .fieldsContainer .textFilds {
+    width: 100% !important;
+  }
+}/*# sourceMappingURL=style.css.map */
