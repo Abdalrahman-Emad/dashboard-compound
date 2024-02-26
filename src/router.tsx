@@ -68,6 +68,7 @@ import PermissionView from './pages/RequestsPermission/PermissionView';
 import News from './pages/SocialCommunication/News';
 import { AddNews } from './pages/SocialCommunication/AddNews';
 import AddComplaintsPage from './pages/FacilityManagement/AddComplaintsPage';
+import UpdatePermission from './pages/RequestsPermission/UpdatePermission';
 
 const router = createBrowserRouter([
     {
@@ -202,6 +203,11 @@ const router = createBrowserRouter([
                         path: 'view',
                         element: <PermissionView />,
                     },
+                    {
+                        path: 'update',
+                        element: <UpdatePermission permission={{ id: 0, type: '', unitName: '', projectName: '', date: '', time: '', status: '', names: [] }} onUpdatePermission={(id: number) => {}} />,
+                    },
+                    
                 ],
             },
             {

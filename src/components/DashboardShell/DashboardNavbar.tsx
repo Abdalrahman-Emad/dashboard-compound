@@ -107,8 +107,8 @@ export const DashboardNavbar = () => {
                             color="dark"
                             component={RouterNavLink}
                             label="Permissions"
-                            to="requests-permission/permission"
-                            active={isActiveLink('permission')}
+                            to="requests-permission/view"
+                            active={isActiveLink('view')}
                         />
                     </NavLink>
                     <NavLink icon={<IconMessage2 />} label="Messaging" childrenOffset={28}>

@@ -1,11 +1,15 @@
 import React from 'react';
+import { DatePicker } from '@mantine/dates';
+import { IconCalendar } from '@tabler/icons';
 
 interface WorkerData {
     firstName: string;
     lastName: string;
-    image: string;
     idCardPhoto: string;
+    image: string;
     reason: string;
+    fromDate: string;
+    toDate: string;
     [key: string]: string;
 }
 
@@ -13,11 +17,7 @@ interface WorkerFormProps {
     worker: WorkerData;
     workerIndex: number;
     onRemoveWorker: (index: number) => void;
-    onWorkerChange: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-        index: number,
-        field: string,
-    ) => void;
+    onWorkerChange: (value: string | Date, index: number, field: string) => void;
     onWorkerFileChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void;
 }
 
@@ -28,6 +28,10 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
     onWorkerChange,
     onWorkerFileChange,
 }) => {
+    const handleDateChange = (value: Date | null, field: string) => {
+        const stringValue = value ? value.toISOString().split('T')[0] : ''; // Convert Date to string
+        onWorkerChange(stringValue, workerIndex, field); // Call onWorkerChange with string value
+    };
     return (
         <div className="worker-form my-4 p-4 border rounded border-5">
             <h3 className="mb-3">Worker {workerIndex + 1}</h3>
@@ -41,7 +45,7 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                             name={`firstName${workerIndex}`}
                             className="form-control"
                             value={worker.firstName}
-                            onChange={(e) => onWorkerChange(e, workerIndex, 'firstName')}
+                            onChange={(e) => onWorkerChange(e.target.value, workerIndex, 'firstName')}
                             aria-label={`First Name of Worker ${workerIndex + 1}`}
                         />
                     </div>
@@ -55,7 +59,7 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                             name={`lastName${workerIndex}`}
                             className="form-control"
                             value={worker.lastName}
-                            onChange={(e) => onWorkerChange(e, workerIndex, 'lastName')}
+                            onChange={(e) => onWorkerChange(e.target.value, workerIndex, 'lastName')}
                             aria-label={`Last Name of Worker ${workerIndex + 1}`}
                         />
                     </div>
@@ -71,7 +75,7 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                             name={`idCardPhoto${workerIndex}`}
                             className="form-control-file mx-1"
                             onChange={(e) => onWorkerFileChange(e, workerIndex)}
-                            accept=".jpg, .jpeg, .png" // Specify accepted file types
+                            accept=".jpg, .jpeg, .png"
                             aria-label={`Upload ID Card Photo for Worker ${workerIndex + 1}`}
                         />
                         {/* Placeholder for error message */}
@@ -86,16 +90,38 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                             name={`personalPhoto${workerIndex}`}
                             className="form-control-file mx-1"
                             onChange={(e) => onWorkerFileChange(e, workerIndex)}
-                            accept=".jpg, .jpeg, .png" // Specify accepted file types
+                            accept=".jpg, .jpeg, .png"
                             aria-label={`Upload Personal Photo for Worker ${workerIndex + 1}`}
                         />
                         {/* Placeholder for error message */}
                     </div>
                 </div>
             </div>
-
+            <div className="row">
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label className="form-label">From Date:</label>
+                        <DatePicker
+                            className="form-control"
+                            value={worker.fromDate ? new Date(worker.fromDate) : null}
+                            onChange={(value) => handleDateChange(value, 'fromDate')}
+                            rightSection={<IconCalendar />}
+                        />
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label className="form-label">To Date:</label>
+                        <DatePicker
+                            className="form-control"
+                            value={worker.fromDate ? new Date(worker.fromDate) : null}
+                            onChange={(value) => handleDateChange(value, 'fromDate')}
+                            rightSection={<IconCalendar />}
+                        />
+                    </div>
+                </div>
+            </div>
             <div className="form-group my-3">
-                {/* <label htmlFor={`reason${workerIndex}`}>Reason for Visiting:</label> */}
                 <textarea
                     placeholder="Please Write the Reason for Visiting"
                     rows={4}
@@ -103,7 +129,7 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                     name={`reason${workerIndex}`}
                     className="form-control"
                     value={worker.reason}
-                    onChange={(e) => onWorkerChange(e, workerIndex, 'reason')}
+                    onChange={(e) => onWorkerChange(e.target.value, workerIndex, 'reason')}
                     aria-label={`Reason for Visiting for Worker ${workerIndex + 1}`}
                 ></textarea>
             </div>

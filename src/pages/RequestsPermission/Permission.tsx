@@ -1,13 +1,24 @@
-// Permission.tsx
 import React, { useState } from 'react';
 import WorkerForm from './WorkerForm';
 import { Link } from 'react-router-dom';
+import VisitorForm from './VisitorForm';
+import PermissionView from './PermissionView';
 
 interface WorkerData {
     firstName: string;
     lastName: string;
     idCardPhoto: string;
     image: string; // New field for the worker's image
+    reason: string;
+    fromDate: string; // New field for the worker's from date
+    toDate: string; // New field for the worker's to date
+    [key: string]: string;
+}
+interface VisitorData {
+    name: string;
+    idCard: string;
+    phone: string;
+    carNumber: string;
     reason: string;
     [key: string]: string;
 }
@@ -20,6 +31,7 @@ interface PermissionForm {
     date: string;
     time: string;
     workerData: WorkerData[];
+    visitorData: VisitorData[]; // Add visitorData array
     reason: string;
     status: string;
 }
@@ -34,7 +46,8 @@ const Permission: React.FC = () => {
         id: '',
         date: '',
         time: '',
-        workerData: [{ firstName: '', lastName: '', image: '', idCardPhoto: '', reason: '' }],
+        workerData: [{ firstName: '', lastName: '', image: '', idCardPhoto: '', reason: '',fromDate:'',toDate:'' }],
+        visitorData: [{ name: '', idCard: '', phone: '', carNumber: '', reason: '' }], // Add visitorData
         reason: '',
         status: '',
     });
@@ -56,18 +69,24 @@ const Permission: React.FC = () => {
         }));
     };
 
-    const workerLabel = permitType === 'visitor' ? 'Visitor' : 'Worker';
-
     const handleAddWorker = () => {
         setFormData((prevFormData) => ({
             ...prevFormData,
             workerData: [
                 ...prevFormData.workerData,
-                { firstName: '', lastName: '', image: '', idCardPhoto: '', reason: '' },
+                {
+                    firstName: '',
+                    lastName: '',
+                    image: '',
+                    idCardPhoto: '',
+                    reason: '',
+                    fromDate: '', // Add fromDate field
+                    toDate: '', // Add toDate field
+                },
             ],
         }));
     };
-
+    
     const handleRemoveWorker = (index: number) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
@@ -75,13 +94,47 @@ const Permission: React.FC = () => {
         }));
     };
 
-    const handleWorkerChange = (
+    const handleAddVisitor = () => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            visitorData: [
+                ...prevFormData.visitorData,
+                { name: '', idCard: '', phone: '', carNumber: '', reason: '' },
+            ],
+        }));
+    };
+
+    const handleRemoveVisitor = (index: number) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            visitorData: prevFormData.visitorData.filter((_, i) => i !== index),
+        }));
+    };
+
+    const handleVisitorChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
         index: number,
         field: string,
     ) => {
+        const newVisitorData = [...formData.visitorData];
+        newVisitorData[index][field] = e.target.value;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            visitorData: newVisitorData,
+        }));
+    };
+
+    const handleVisitorFileChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        // Handle file change for visitor
+    };
+
+    const handleWorkerChange = (
+        value: string | Date,
+        index: number,
+        field: string,
+    ) => {
         const newWorkerData = [...formData.workerData];
-        newWorkerData[index][field] = e.target.value;
+        newWorkerData[index][field] = value as string;
         setFormData((prevFormData) => ({
             ...prevFormData,
             workerData: newWorkerData,
@@ -121,6 +174,7 @@ const Permission: React.FC = () => {
     };
 
     return (
+        <>
         <div className="container py-4">
             <div className="row justify-content-center">
                 <div className="col-md-12">
@@ -231,24 +285,47 @@ const Permission: React.FC = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {formData.workerData.map((worker, index) => (
-                                            <WorkerForm
-                                                key={index}
-                                                worker={worker}
-                                                workerIndex={index}
-                                                onRemoveWorker={handleRemoveWorker}
-                                                onWorkerChange={handleWorkerChange}
-                                                onWorkerFileChange={handleWorkerFileChange}
-                                            />
-                                        ))}
+                                        {permitType === 'visitor' &&
+                                            formData.visitorData.map((visitor, index) => (
+                                                <VisitorForm
+                                                    key={index}
+                                                    visitor={visitor}
+                                                    visitorIndex={index}
+                                                    onRemoveVisitor={handleRemoveVisitor}
+                                                    onVisitorChange={handleVisitorChange}
+                                                    onVisitorFileChange={handleVisitorFileChange}
+                                                />
+                                            ))}
+                                        {permitType === 'labor' &&
+                                            formData.workerData.map((worker, index) => (
+                                                <WorkerForm
+                                                    key={index}
+                                                    worker={worker}
+                                                    workerIndex={index}
+                                                    onRemoveWorker={handleRemoveWorker}
+                                                    onWorkerChange={handleWorkerChange}
+                                                    onWorkerFileChange={handleWorkerFileChange}
+                                                />
+                                            ))}
                                         <div className="text-center">
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary mx-2"
-                                                onClick={handleAddWorker}
-                                            >
-                                                Add {workerLabel}
-                                            </button>
+                                            {permitType === 'labor' && (
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-primary mx-2"
+                                                    onClick={handleAddWorker}
+                                                >
+                                                    Add Worker
+                                                </button>
+                                            )}
+                                            {permitType === 'visitor' && (
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-primary mx-2"
+                                                    onClick={handleAddVisitor}
+                                                >
+                                                    Add Visitor
+                                                </button>
+                                            )}
                                             <Link to="/dashboard/requests-permission/view">
                                                 <button type="submit" className="btn btn-success">
                                                     Submit
@@ -263,6 +340,7 @@ const Permission: React.FC = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
