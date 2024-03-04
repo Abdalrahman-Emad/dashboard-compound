@@ -1,47 +1,40 @@
-// Import necessary components and libraries
 import React, { useState } from 'react';
 import { Box, Button, Grid, Stack, TextInput, Text } from '@mantine/core';
 import PaperBox from '../../components/PaperBox';
 import PageTitle from '../../components/PageTitle';
 import { Link } from 'react-router-dom';
 
-// Define the AddComplaintsPage component
 const AddComplaintsPage: React.FC = () => {
-    // Define state variables
     const [complainId, setComplainId] = useState('');
     const [categoryName, setCategoryName] = useState('');
-    const [description, setDescription] = useState('');
-    const [date, setDate] = useState('');
-    const [creator, setCreator] = useState('');
+    const [complainPriority, setComplainPriority] = useState('');
     const [location, setLocation] = useState('');
     const [unit, setUnit] = useState('');
     const [unitType, setUnitType] = useState('');
-    const [image, setImage] = useState<File | null>(null); // State to hold the selected image file
+    const [image, setImage] = useState<File | null>(null);
+    const [replyDetails, setReplyDetails] = useState('');
+    const [replyCreator, setReplyCreator] = useState('');
+    const [replyDateTime, setReplyDateTime] = useState('');
+    const [complainStatus, setComplainStatus] = useState('');
+    const [comments, setComments] = useState('');
 
-    // Define handleSubmit function
     const handleSubmit = () => {
         // Handle form submission logic here
     };
 
-    // Define handleImageChange function
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            setImage(e.target.files[0]); // Set the first selected image
+            setImage(e.target.files[0]);
         }
     };
 
-    // Return JSX
     return (
         <div>
-            {/* Page title */}
             <PageTitle />
-            {/* Grid layout */}
             <Grid>
-                {/* Form section */}
                 <Grid.Col span={6}>
                     <PaperBox>
                         <Box component="form" onSubmit={handleSubmit}>
-                            {/* Form fields stack */}
                             <Stack spacing="lg">
                                 <TextInput
                                     label="Complain ID"
@@ -49,34 +42,34 @@ const AddComplaintsPage: React.FC = () => {
                                     onChange={(e) => setComplainId(e.target.value)}
                                 />
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <label style={{ marginRight: '10px' }}>Category Name:</label>
+                                    <label className="form-label" style={{ marginRight: '10px' }}>
+                                        Category Name:
+                                    </label>
                                     <select
-                                        style={{ padding:'10px'}}
+                                        className="form-select w-100"
                                         value={categoryName}
                                         onChange={(e) => setCategoryName(e.target.value)}
                                     >
                                         <option value="">Select Category</option>
-                                        <option value="Category 1">Global</option>
+                                        <option value="Global">Global</option>
                                         <option value="Category 2">Category 2</option>
+                                        <option value="Category 3">Category 3</option>
                                     </select>
                                 </div>
-                                <Text>Descriptions:</Text>
-                                <textarea
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    rows={4}
-                                />
-                                <TextInput
-                                    label="Date"
-                                    type="date"
-                                    value={date}
-                                    onChange={(e) => setDate(e.target.value)}
-                                />
-                                <TextInput
-                                    label="Creator"
-                                    value={creator}
-                                    onChange={(e) => setCreator(e.target.value)}
-                                />
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <label className="form-label" style={{ marginRight: '10px' }}>
+                                        Complain Priority:
+                                    </label>
+                                    <select
+                                        className="form-select w-100"
+                                        value={complainPriority}
+                                        onChange={(e) => setComplainPriority(e.target.value)}
+                                    >
+                                        <option value="">Select Priority</option>
+                                        <option value="High">High</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </div>
                                 <TextInput
                                     label="Location"
                                     value={location}
@@ -91,15 +84,16 @@ const AddComplaintsPage: React.FC = () => {
                                 {/* Image upload input */}
                                 <label
                                     htmlFor="image-upload"
-                                    className="w-25"
                                     style={{
                                         backgroundColor: 'teal',
                                         color: 'white',
                                         padding: '10px',
                                         borderRadius: '5px',
                                         cursor: 'pointer',
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
+                                        display: 'block',
+                                        marginTop: '20px',
+                                        width: '25%',
+                                        textAlign: 'center',
                                     }}
                                 >
                                     Upload Image
@@ -111,27 +105,64 @@ const AddComplaintsPage: React.FC = () => {
                                         style={{ display: 'none' }}
                                     />
                                 </label>
-                                {/* Submit button */}
-                                <Link to="/dashboard/facility-management/complaints">
-                                    <Button color="teal" type="submit" fullWidth>
-                                        Save
-                                    </Button>
-                                </Link>
+                                {/* Image preview */}
+                                {image && (
+                                    <img
+                                        src={URL.createObjectURL(image)}
+                                        alt="Preview"
+                                        style={{ marginTop: '20px', maxWidth: '60%' }}
+                                    />
+                                )}
                             </Stack>
                         </Box>
                     </PaperBox>
                 </Grid.Col>
-                {/* Image preview section */}
-                <Grid.Col span={4}>
+                <Grid.Col span={6}>
                     <PaperBox>
-                        {/* Display the selected image */}
-                        {image && <img src={URL.createObjectURL(image)} alt="Uploaded" style={{ width: '100%' }} />}
+                        <Box component="form" onSubmit={handleSubmit}>
+                            <Stack spacing="lg">
+                                <Text>Reply Details:</Text>
+                                <textarea
+                                    value={replyDetails}
+                                    onChange={(e) => setReplyDetails(e.target.value)}
+                                    rows={4}
+                                />
+                                <TextInput
+                                    label="Creator"
+                                    value={replyCreator}
+                                    onChange={(e) => setReplyCreator(e.target.value)}
+                                />
+                                <TextInput
+                                    label="Date Time"
+                                    type="datetime-local"
+                                    value={replyDateTime}
+                                    onChange={(e) => setReplyDateTime(e.target.value)}
+                                />
+                                <Text>Complain Status:</Text>
+                                <select
+                                    className="form-select"
+                                    value={complainStatus}
+                                    onChange={(e) => setComplainStatus(e.target.value)}
+                                >
+                                    <option value="open">Open</option>
+                                    <option value="in_progress">In Progress</option>
+                                    <option value="resolved">Resolved</option>
+                                    <option value="closed">Closed</option>
+
+                                </select>
+                                <Text>Comments:</Text>
+                                <textarea value={comments} onChange={(e) => setComments(e.target.value)} rows={4} />
+                            </Stack>
+                        </Box>
                     </PaperBox>
                 </Grid.Col>
             </Grid>
+            {/* Submit button */}
+            <Button color="teal" type="submit" fullWidth>
+                Save
+            </Button>
         </div>
     );
 };
 
-// Export the component
 export default AddComplaintsPage;

@@ -37,6 +37,7 @@ export const DashboardNavbar = () => {
                         to="."
                         active={isActiveLink('dashboard')}
                     />
+                    
                     <NavLink label="My Community" icon={<IconLayout2 size={24} stroke={1.5} />} childrenOffset={28}>
                         <NavLink
                             color="dark"

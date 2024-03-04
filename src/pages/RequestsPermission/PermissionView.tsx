@@ -11,6 +11,7 @@ interface PermissionData {
     time: string;
     status: string;
     names: string[];
+    unitStatue: string;
 }
 
 const samplePermissionData: PermissionData[] = [
@@ -23,6 +24,7 @@ const samplePermissionData: PermissionData[] = [
         time: '09:00',
         status: 'Pending',
         names: ['Worker 1', 'Worker 2', 'Worker 3'],
+        unitStatue:  'Active'
     },
     {
         id: 2,
@@ -33,6 +35,7 @@ const samplePermissionData: PermissionData[] = [
         time: '10:00',
         status: 'Open',
         names: ['Ali Hassan', 'Omar Sherif'],
+        unitStatue: 'Inactive',
     },
     {
         id: 3,
@@ -43,6 +46,7 @@ const samplePermissionData: PermissionData[] = [
         time: '12:00',
         status: 'Closing',
         names: ['Worker 1', 'Worker 2'],
+        unitStatue:'In Service'
     },
     // Add more sample permission data as needed
 ];

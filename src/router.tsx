@@ -69,6 +69,7 @@ import News from './pages/SocialCommunication/News';
 import { AddNews } from './pages/SocialCommunication/AddNews';
 import AddComplaintsPage from './pages/FacilityManagement/AddComplaintsPage';
 import UpdatePermission from './pages/RequestsPermission/UpdatePermission';
+import AddOwnerProfile from './pages/Profile/AddOwnerProfile';
 
 const router = createBrowserRouter([
     {
@@ -148,6 +149,7 @@ const router = createBrowserRouter([
                     },
                 ],
             },
+
             {
                 path: 'facility-management',
                 children: [

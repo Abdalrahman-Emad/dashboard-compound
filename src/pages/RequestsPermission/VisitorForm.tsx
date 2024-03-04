@@ -6,6 +6,7 @@ interface VisitorData {
     phone: string;
     carNumber: string;
     [key: string]: string;
+    visitorStatus:string;
 }
 
 interface VisitorFormProps {
@@ -13,7 +14,7 @@ interface VisitorFormProps {
     visitorIndex: number;
     onRemoveVisitor: (index: number) => void;
     onVisitorChange: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
         index: number,
         field: string,
     ) => void;
@@ -89,10 +90,45 @@ const VisitorForm: React.FC<VisitorFormProps> = ({
                         />
                     </div>
                 </div>
+                <div className="col-md-6">
+                    <div className="mb-3">
+                        <label htmlFor={`visitorStatus${visitorIndex}`} className="form-label">
+                            Visitor Status:
+                        </label>
+                        <select
+                            id={`visitorStatus${visitorIndex}`}
+                            name={`visitorStatus${visitorIndex}`}
+                            className="form-select"
+                            value={visitor.visitorStatus}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onVisitorChange(e, visitorIndex, 'visitorStatus')}
+                            aria-label={`Visitor Status of Visitor ${visitorIndex + 1}`}
+                        >
+                            <option value="">Select Visitor Status</option>
+                            <option value="active">Rejected</option>
+                            <option value="inactive">Allowed</option>
+                            {/* Add more options as needed */}
+                        </select>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="mb-3">
+                        <label htmlFor={`idCardPhoto${visitorIndex}`} className="form-label">
+                            Upload ID Card Photo :
+                        </label>
+                        <input
+                            type="file"
+                            id={`idCardPhoto${visitorIndex}`}
+                            name={`idCardPhoto${visitorIndex}`}
+                            className="form-control-file mx-1"
+                            onChange={(e) => onVisitorFileChange(e, visitorIndex)}
+                            accept=".jpg, .jpeg, .png"
+                            aria-label={`Upload ID Card Photo for Visitor ${visitorIndex + 1}`}
+                        />
+                        {/* Placeholder for error message */}
+                    </div>
+                </div>
             </div>
-
             {/* Add or remove fields as needed */}
-
             <div className="d-flex justify-content-end my-2">
                 <button
                     type="button"

@@ -10,7 +10,11 @@ interface WorkerData {
     reason: string;
     fromDate: string;
     toDate: string;
+    cost: string;
+    carId: string;
+    IdWorker: string;
     [key: string]: string;
+    workerStatus: string;
 }
 
 interface WorkerFormProps {
@@ -37,8 +41,10 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
             <h3 className="mb-3">Worker {workerIndex + 1}</h3>
             <div className="row">
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor={`firstName${workerIndex}`}>First Name:</label>
+                    <div className="mb-3">
+                        <label htmlFor={`firstName${workerIndex}`} className="form-label">
+                            First Name:
+                        </label>
                         <input
                             type="text"
                             id={`firstName${workerIndex}`}
@@ -51,8 +57,10 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor={`lastName${workerIndex}`}>Last Name:</label>
+                    <div className="mb-3">
+                        <label htmlFor={`lastName${workerIndex}`} className="form-label">
+                            Last Name:
+                        </label>
                         <input
                             type="text"
                             id={`lastName${workerIndex}`}
@@ -66,40 +74,64 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-6 my-3">
-                    <div className="form-group">
-                        <label htmlFor={`idCardPhoto${workerIndex}`}>Upload ID Card Photo :</label>
+                <div className="col-md-6">
+                    <div className="mb-3">
+                        <label htmlFor={`cost${workerIndex}`} className="form-label">
+                            Cost:
+                        </label>
                         <input
-                            type="file"
-                            id={`idCardPhoto${workerIndex}`}
-                            name={`idCardPhoto${workerIndex}`}
-                            className="form-control-file mx-1"
-                            onChange={(e) => onWorkerFileChange(e, workerIndex)}
-                            accept=".jpg, .jpeg, .png"
-                            aria-label={`Upload ID Card Photo for Worker ${workerIndex + 1}`}
+                            type="text"
+                            id={`cost${workerIndex}`}
+                            name={`cost${workerIndex}`}
+                            className="form-control"
+                            value={worker.cost}
+                            onChange={(e) => onWorkerChange(e.target.value, workerIndex, 'cost')}
+                            aria-label={`Cost for Worker ${workerIndex + 1}`}
                         />
-                        {/* Placeholder for error message */}
                     </div>
                 </div>
-                <div className="col-md-6 my-3">
-                    <div className="form-group">
-                        <label htmlFor={`personalPhoto${workerIndex}`}>Upload Personal Photo :</label>
+                <div className="col-md-6">
+                    <div className="mb-3">
+                        <label htmlFor={`carId${workerIndex}`} className="form-label">
+                            Car ID:
+                        </label>
                         <input
-                            type="file"
-                            id={`personalPhoto${workerIndex}`}
-                            name={`personalPhoto${workerIndex}`}
-                            className="form-control-file mx-1"
-                            onChange={(e) => onWorkerFileChange(e, workerIndex)}
-                            accept=".jpg, .jpeg, .png"
-                            aria-label={`Upload Personal Photo for Worker ${workerIndex + 1}`}
+                            type="text"
+                            id={`carId${workerIndex}`}
+                            name={`carId${workerIndex}`}
+                            className="form-control"
+                            value={worker.carId}
+                            onChange={(e) => onWorkerChange(e.target.value, workerIndex, 'Car ID')}
+                            aria-label={`Car Id for Worker ${workerIndex + 1}`}
                         />
-                        {/* Placeholder for error message */}
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="col-md-6">
-                    <div className="form-group">
+                    <div className="mb-3">
+                        <label htmlFor={`workerStatus${workerIndex}`} className="form-label">
+                            Worker Status:
+                        </label>
+                        <select
+                            id={`workerStatus${workerIndex}`}
+                            name={`workerStatus${workerIndex}`}
+                            className="form-select"
+                            value={worker.workerStatus}
+                            onChange={(e) => onWorkerChange(e.target.value, workerIndex, 'workerStatus')}
+                            aria-label={`Worker Status of Worker ${workerIndex + 1}`}
+                        >
+                            <option value="">Select Worker Status</option>
+                            <option value="active">Allowed</option>
+                            <option value="inactive">Rejected</option>
+                            {/* Add more options as needed */}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-md-6">
+                    <div className="mb-3">
                         <label className="form-label">From Date:</label>
                         <DatePicker
                             className="form-control"
@@ -110,7 +142,7 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="form-group">
+                    <div className="mb-3">
                         <label className="form-label">To Date:</label>
                         <DatePicker
                             className="form-control"
@@ -121,7 +153,42 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                     </div>
                 </div>
             </div>
-            <div className="form-group my-3">
+            <div className="row">
+                <div className="col-md-6 mb-3">
+                    <label htmlFor={`idCardPhoto${workerIndex}`} className="form-label">
+                        Upload ID Card Photo :
+                    </label>
+                    <input
+                        type="file"
+                        id={`idCardPhoto${workerIndex}`}
+                        name={`idCardPhoto${workerIndex}`}
+                        className="form-control-file mx-1"
+                        onChange={(e) => onWorkerFileChange(e, workerIndex)}
+                        accept=".jpg, .jpeg, .png"
+                        aria-label={`Upload ID Card Photo for Worker ${workerIndex + 1}`}
+                    />
+                    {/* Placeholder for error message */}
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor={`personalPhoto${workerIndex}`} className="form-label">
+                        Upload Personal Photo :
+                    </label>
+                    <input
+                        type="file"
+                        id={`personalPhoto${workerIndex}`}
+                        name={`personalPhoto${workerIndex}`}
+                        className="form-control-file mx-1"
+                        onChange={(e) => onWorkerFileChange(e, workerIndex)}
+                        accept=".jpg, .jpeg, .png"
+                        aria-label={`Upload Personal Photo for Worker ${workerIndex + 1}`}
+                    />
+                    {/* Placeholder for error message */}
+                </div>
+            </div>
+            <div className="form-group mb-3">
+                <label htmlFor={`reason${workerIndex}`} className="form-label">
+                    Reason for Visiting:
+                </label>
                 <textarea
                     placeholder="Please Write the Reason for Visiting"
                     rows={4}
@@ -133,10 +200,10 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                     aria-label={`Reason for Visiting for Worker ${workerIndex + 1}`}
                 ></textarea>
             </div>
-            <div className="d-flex justify-content-end my-2">
+            <div className="d-flex justify-content-end">
                 <button
                     type="button"
-                    className="btn btn-danger btn-group-sm"
+                    className="btn btn-danger btn-sm"
                     onClick={() => onRemoveWorker(workerIndex)}
                     aria-label={`Remove Worker ${workerIndex + 1}`}
                 >
