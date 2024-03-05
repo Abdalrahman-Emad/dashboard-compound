@@ -3,6 +3,7 @@ import WorkerForm from './WorkerForm';
 import { Link } from 'react-router-dom';
 import VisitorForm from './VisitorForm';
 import PermissionView from './PermissionView';
+import PaperBox from '../../components/PaperBox';
 
 interface WorkerData {
     firstName: string;
@@ -204,7 +205,8 @@ const Permission: React.FC = () => {
                 <div className="row justify-content-center">
                     <div className="col-md-12">
                         <div className="card shadow">
-                            <div className="card-header bg-primary text-white">Permission Form</div>
+                            <h1 className="card-header">Permission Form</h1>
+                            <PaperBox>
                             <div className="card-body">
                                 <form onSubmit={handleSubmit}>
                                     <div className="mb-3">
@@ -418,6 +420,7 @@ const Permission: React.FC = () => {
                                     )}
                                 </form>
                             </div>
+                            </PaperBox>
                         </div>
                     </div>
                 </div>

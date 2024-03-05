@@ -1,3 +1,139 @@
+// import React, { useState } from 'react';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
+// import PaperBox from '../../components/PaperBox';
+// import { Link } from 'react-router-dom';
+
+// // Define the interface for profile data
+// interface ProfileData {
+//     ownerName: string;
+//     id: string;
+//     nationality: string;
+//     mobile: string;
+//     address: string;
+//     email: string;
+//     job: string;
+//     placeOfWork: string;
+//     passportNo: string;
+//     workMobile: string;
+//     expiryDate: string;
+//     region: string;
+//     idExpiryDate: string;
+//     ownerStatus: string;
+//     ownerNotes: string;
+//     customerType: string;
+//     education: string;
+//     birthDate: string;
+//     carNumber: string;
+//     ownerKind: string;
+//     image: string;
+//     // Add other properties if needed
+// }
+
+// // Define the props interface for the Updates component
+// interface UpdatesProps {
+//     profileData: ProfileData;
+// }
+
+// // Define the Updates component
+// const Updates: React.FC<UpdatesProps> = ({ profileData }) => {
+//     const [updatedProfile, setUpdatedProfile] = useState<ProfileData>(profileData);
+//     const [isEditing, setIsEditing] = useState<boolean>(false);
+
+//     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof ProfileData) => {
+//         if (['ownerName', 'id', 'nationality', 'mobile', 'address', 'email', 'job'].includes(field)) {
+//             setUpdatedProfile({ ...updatedProfile, [field]: e.target.value });
+//         }
+//     };
+
+//     const handleSaveChanges = () => {
+//         console.log('Saving changes:', updatedProfile);
+//         // Add logic to save changes
+//         setIsEditing(false);
+//     };
+
+//     const handleCancelChanges = () => {
+//         setUpdatedProfile(profileData);
+//         setIsEditing(false);
+//     };
+
+//     const renderInputs = () => {
+//         const inputPairs: JSX.Element[] = [];
+//         const keys = Object.keys(updatedProfile).filter(
+//             (key) => ["ownerName", "id", "nationality", "mobile", "address", "email", "job"].includes(key)
+//         );
+
+//         for (let i = 0; i < keys.length; i += 2) {
+//             const firstKey = keys[i];
+//             const secondKey = keys[i + 1];
+//             inputPairs.push(
+//                 <div className="row mb-3" key={i}>
+//                     <div className="col">
+//                         <div className="input-group">
+//                             <span className="input-group-text">{firstKey}</span>
+//                             <input
+//                                 type="text"
+//                                 className="form-control"
+//                                 aria-label={firstKey}
+//                                 value={updatedProfile[firstKey as keyof ProfileData]}
+//                                 readOnly={!isEditing}
+//                                 onChange={(e) => handleInputChange(e, firstKey as keyof ProfileData)}
+//                             />
+//                         </div>
+//                     </div>
+//                     {secondKey && (
+//                         <div className="col">
+//                             <div className="input-group">
+//                                 <span className="input-group-text">{secondKey}</span>
+//                                 <input
+//                                     type="text"
+//                                     className="form-control"
+//                                     aria-label={secondKey}
+//                                     value={updatedProfile[secondKey as keyof ProfileData]}
+//                                     readOnly={!isEditing}
+//                                     onChange={(e) => handleInputChange(e, secondKey as keyof ProfileData)}
+//                                 />
+//                             </div>
+//                         </div>
+//                     )}
+//                 </div>
+//             );
+//         }
+//         return inputPairs;
+//     };
+
+//     return (
+//         <div className="container mt-4">
+//             <PaperBox>
+//                 <div className='d-flex justify-content-between align-items-center mb-4'>
+//                     <h1>Update Profile</h1>
+//                    <Link to="/dashboard/view-profile"><button className="btn btn-primary" onClick={() => console.log("Back button clicked")}>Back</button></Link> 
+//                 </div>
+//                 <div>{renderInputs()}</div>
+//                 {isEditing ? (
+//                     <div className="text-center mt-3">
+//                         <button className="btn btn-primary mx-2" onClick={handleSaveChanges}>
+//                             <FontAwesomeIcon icon={faSave} className="mr-1 mx-1" />
+//                             Save Changes
+//                         </button>
+//                         <button className="btn btn-secondary" onClick={handleCancelChanges}>
+//                             <FontAwesomeIcon icon={faTimes} className="mr-1" />
+//                             Cancel
+//                         </button>
+//                     </div>
+//                 ) : (
+//                     <button className="btn btn-primary mt-3 mx-auto d-block" onClick={() => setIsEditing(true)}>
+//                         Edit Profile
+//                     </button>
+//                 )}
+//             </PaperBox>
+//         </div>
+//     );
+// };
+
+// export default Updates;
+
+////////////////////////////////////////////////////
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PaperBox from '../../components/PaperBox';
@@ -127,7 +263,7 @@ const AddOwnerProfile: React.FC<AddOwnerProfileProps> = ({ onAddOwner }) => {
             <div className="row justify-content-center">
                 <div className="col-md-12">
                     <div className="card shadow">
-                        <h1 className="card-header">Add Owner Profile</h1>
+                        <h1 className="card-header">Update Profile</h1>
                         <PaperBox>
                         <div className="card-body">
                             <form onSubmit={handleSubmit}>

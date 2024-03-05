@@ -70,6 +70,107 @@ import { AddNews } from './pages/SocialCommunication/AddNews';
 import AddComplaintsPage from './pages/FacilityManagement/AddComplaintsPage';
 import UpdatePermission from './pages/RequestsPermission/UpdatePermission';
 import AddOwnerProfile from './pages/Profile/AddOwnerProfile';
+import ViewProfile from './pages/Profile/ViewProfile';
+import Updates from './pages/Profile/Updates';
+
+interface ProfileData {
+    ownerName: string;
+    id: string;
+    nationality: string;
+    mobile: string;
+    address: string;
+    email: string;
+    job: string;
+    placeOfWork: string;
+    passportNo: string;
+    workMobile: string;
+    expiryDate: string;
+    region: string;
+    idExpiryDate: string;
+    ownerStatus: string;
+    ownerNotes: string;
+    customerType: string;
+    education: string;
+    birthDate: string;
+    carNumber: string;
+    ownerKind: string;
+    image: string;
+    // Add other properties if needed
+}
+
+const profileData: ProfileData[] = [
+    {
+        ownerName: 'Alex',
+        id: '5482',
+        nationality: 'EGY',
+        mobile: '546-541-123',
+        address: '123 Main St',
+        email: 'john@example.com',
+        job: 'Developer',
+        placeOfWork: 'ABC Corp',
+        passportNo: 'AB123456',
+        workMobile: '987-654-3210',
+        expiryDate: '2024-12-31',
+        region: 'North America',
+        idExpiryDate: '',
+        ownerStatus: '',
+        ownerNotes: '',
+        customerType: '',
+        education: '',
+        birthDate: '',
+        carNumber: '',
+        ownerKind: '',
+        image: ''
+    },
+    {
+        ownerName: 'John Doe',
+        id: '123456789',
+        nationality: 'US',
+        mobile: '123-456-7890',
+        address: '123 Main St',
+        email: 'john@example.com',
+        job: 'Developer',
+        placeOfWork: 'ABC Corp',
+        passportNo: 'AB123456',
+        workMobile: '987-654-3210',
+        expiryDate: '2024-12-31',
+        region: 'North America',
+        idExpiryDate: '',
+        ownerStatus: '',
+        ownerNotes: '',
+        customerType: '',
+        education: '',
+        birthDate: '',
+        carNumber: '',
+        ownerKind: '',
+        image: ''
+    },
+    {
+        ownerName: 'John Doe',
+        id: '123456789',
+        nationality: 'US',
+        mobile: '123-456-7890',
+        address: '123 Main St',
+        email: 'john@example.com',
+        job: 'Developer',
+        placeOfWork: 'ABC Corp',
+        passportNo: 'AB123456',
+        workMobile: '987-654-3210',
+        expiryDate: '2024-12-31',
+        region: 'North America',
+        idExpiryDate: '',
+        ownerStatus: '',
+        ownerNotes: '',
+        customerType: '',
+        education: '',
+        birthDate: '',
+        carNumber: '',
+        ownerKind: '',
+        image: ''
+    }
+];
+
+
 
 const router = createBrowserRouter([
     {
@@ -100,6 +201,23 @@ const router = createBrowserRouter([
                 path: 'settings',
                 element: <SettingsPage />,
             },
+
+            {
+                path: 'add-owner-profile',
+                element: <AddOwnerProfile onAddOwner={handleAddOwner} />, // Assuming handleAddOwner is a function defined elsewhere
+            },
+
+            {
+                path: 'view-profile',
+                element: <ViewProfile profileData={profileData} />
+                , // Pass the sample profile data object
+            },
+
+            {
+                path:'update-profile',
+                element: <Updates profileData={profileData[0]}/> // Pass a single object instead of the entire array
+            },
+                                
 
             {
                 path: 'community',
@@ -515,3 +633,31 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
+function handleAddOwner(owner: OwnerData): void {
+    throw new Error('Function not implemented.');
+}
+
+interface OwnerData {
+    ownerName: string;
+    id: string;
+    nationality: string;
+    mobile: string;
+    address: string;
+    email: string;
+    job: string;
+    placeOfWork: string;
+    passportNo: string;
+    workMobile: string;
+    expiryDate: string;
+    region: string;
+    idExpiryDate: string;
+    ownerStatus: string;
+    ownerNotes: string;
+    customerType: string;
+    education: string;
+    birthDate: string;
+    carNumber: string;
+    ownerKind: string;
+    image: string;
+}
+

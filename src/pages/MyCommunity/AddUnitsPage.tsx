@@ -25,7 +25,7 @@ export default function AddUnitsPage(): JSX.Element {
         withParking: false,
         // Add more amenities details as needed
     });
-const [projectName, setProjectName] = useState<string>('');
+    const [projectName, setProjectName] = useState<string>('');
     const [selectedUnitKind, setSelectedUnitKind] = useState<string>('');
     const [status, setStatus] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -186,10 +186,11 @@ const [projectName, setProjectName] = useState<string>('');
                                                 onChange={(e) => setRooms(e.target.value)}
                                             />
                                             <TextInput
-                                                label="Completion Date"
-                                                value={completionDate}
-                                                onChange={(e) => setCompletionDate(e.target.value)}
+                                                label="No of Bathrooms"
+                                                value={rooms}
+                                                onChange={(e) => setRooms(e.target.value)}
                                             />
+
                                             <TextInput
                                                 label="Unit Module"
                                                 value={unitModule}
@@ -361,6 +362,16 @@ const [projectName, setProjectName] = useState<string>('');
                                             />
                                         </Stack>
                                     </Grid.Col>
+                                    <Grid.Col span={6}>
+                                        <Stack spacing="md">
+                                    <TextInput
+                                                label="Completion Date"
+                                                value={completionDate}
+                                                onChange={(e) => setCompletionDate(e.target.value)}
+                                            />
+                                            </Stack>
+                                            </Grid.Col>
+
                                 </Grid>
                             </Stack>
                             <Box mt={5} display="flex">

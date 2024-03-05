@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import PaperBox from '../../components/PaperBox';
 
 interface PermissionData {
     id: number;
@@ -24,7 +25,7 @@ const samplePermissionData: PermissionData[] = [
         time: '09:00',
         status: 'Pending',
         names: ['Worker 1', 'Worker 2', 'Worker 3'],
-        unitStatue:  'Active'
+        unitStatue: 'Active',
     },
     {
         id: 2,
@@ -46,7 +47,7 @@ const samplePermissionData: PermissionData[] = [
         time: '12:00',
         status: 'Closing',
         names: ['Worker 1', 'Worker 2'],
-        unitStatue:'In Service'
+        unitStatue: 'In Service',
     },
     // Add more sample permission data as needed
 ];
@@ -86,98 +87,99 @@ const PermissionView: React.FC = () => {
 
     return (
         <div className="container">
-            <h2 className="m-0">Permission View</h2>
-            <div className="row mb-3 my-4">
-                <div className="col">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder=" Unit Name"
-                        value={unitNameQuery}
-                        onChange={(e) => setUnitNameQuery(e.target.value)}
-                        aria-label=" Unit Name"
-                    />
+            <h2 className="m-3">Permission View</h2>
+            <PaperBox>
+                <div className="row mb-3 my-4">
+                    <div className="col">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder=" Unit Name"
+                            value={unitNameQuery}
+                            onChange={(e) => setUnitNameQuery(e.target.value)}
+                            aria-label=" Unit Name"
+                        />
+                    </div>
+                    <div className="col">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder=" Project Name"
+                            value={projectNameQuery}
+                            onChange={(e) => setProjectNameQuery(e.target.value)}
+                            aria-label=" Project Name"
+                        />
+                    </div>
+                    <div className="col">
+                        <input
+                            type="date"
+                            className="form-control"
+                            placeholder="Date"
+                            value={dateQuery}
+                            onChange={(e) => setDateQuery(e.target.value)}
+                            aria-label="Date"
+                        />
+                    </div>
+                    <div className="col">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder=" Type"
+                            value={typeQuery}
+                            onChange={(e) => setTypeQuery(e.target.value)}
+                            aria-label=" Type"
+                        />
+                    </div>
+                    <div className="col">
+                        <input
+                            type="time"
+                            className="form-control"
+                            placeholder=" Time"
+                            value={timeQuery}
+                            onChange={(e) => setTimeQuery(e.target.value)}
+                            aria-label=" Time"
+                        />
+                    </div>
+                    <div className="col">
+                        <button className="btn btn-secondary" onClick={clearFilters}>
+                            Clear
+                        </button>
+                    </div>
                 </div>
-                <div className="col">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder=" Project Name"
-                        value={projectNameQuery}
-                        onChange={(e) => setProjectNameQuery(e.target.value)}
-                        aria-label=" Project Name"
-                    />
+                <div className="row mb-3">
+                    <div className="col w-25 btn-sm">
+                        <Link to="/dashboard/requests-permission/permission" className="btn btn-primary">
+                            Add Permission
+                        </Link>
+                    </div>
                 </div>
-                <div className="col">
-                    <input
-                        type="date"
-                        className="form-control"
-                        placeholder="Date"
-                        value={dateQuery}
-                        onChange={(e) => setDateQuery(e.target.value)}
-                        aria-label="Date"
-                    />
-                </div>
-                <div className="col">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder=" Type"
-                        value={typeQuery}
-                        onChange={(e) => setTypeQuery(e.target.value)}
-                        aria-label=" Type"
-                    />
-                </div>
-                <div className="col">
-                    <input
-                        type="time"
-                        className="form-control"
-                        placeholder=" Time"
-                        value={timeQuery}
-                        onChange={(e) => setTimeQuery(e.target.value)}
-                        aria-label=" Time"
-                    />
-                </div>
-                <div className="col">
-                    <button className="btn btn-secondary" onClick={clearFilters}>
-                        Clear
-                    </button>
-                </div>
-            </div>
-            <div className="row mb-3">
-                <div className="col w-25 btn-sm">
-                    <Link to="/dashboard/requests-permission/permission" className="btn btn-primary">
-                        Add Permission
-                    </Link>
-                </div>
-            </div>
-            <div className="table-responsive">
-                <table className="table table-bordered table-hover">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th className="align-middle bg-primary text-white">Unit Name</th>
-                            <th className="align-middle bg-primary text-white">Project Name</th>
-                            <th className="align-middle bg-primary text-white">Type</th>
-                            <th className="align-middle bg-primary text-white">Date</th>
-                            <th className="align-middle bg-primary text-white">Time</th>
-                            <th className="align-middle bg-primary text-white">Status</th>
-                            <th className="align-middle bg-primary text-white">Names</th>
-                            <th className="align-middle bg-primary text-white">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {samplePermissionData.filter(filterPermissions).map((permission, index) => (
-                            <tr key={index}>
-                                <td>{permission.unitName}</td>
-                                <td>{permission.projectName}</td>
-                                <td>{permission.type}</td>
-                                <td>{permission.date}</td>
-                                <td>{permission.time}</td>
-                                <td>{permission.status}</td>
-                                <td>{permission.names.join(', ')}</td>
-                                <td>
-                                    <div className="btn-group" role="group">
-                                        {/* <Link to={`/dashboard/requests-permission/requests/${permission.id}`}> */}
+                <div className="table-responsive">
+                    <table className="table table-bordered table-hover">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th className="align-middle bg-primary text-white">Unit Name</th>
+                                <th className="align-middle bg-primary text-white">Project Name</th>
+                                <th className="align-middle bg-primary text-white">Type</th>
+                                <th className="align-middle bg-primary text-white">Date</th>
+                                <th className="align-middle bg-primary text-white">Time</th>
+                                <th className="align-middle bg-primary text-white">Status</th>
+                                <th className="align-middle bg-primary text-white">Names</th>
+                                <th className="align-middle bg-primary text-white">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {samplePermissionData.filter(filterPermissions).map((permission, index) => (
+                                <tr key={index}>
+                                    <td>{permission.unitName}</td>
+                                    <td>{permission.projectName}</td>
+                                    <td>{permission.type}</td>
+                                    <td>{permission.date}</td>
+                                    <td>{permission.time}</td>
+                                    <td>{permission.status}</td>
+                                    <td>{permission.names.join(', ')}</td>
+                                    <td>
+                                        <div className="btn-group" role="group">
+                                            {/* <Link to={`/dashboard/requests-permission/requests/${permission.id}`}> */}
                                             <Link to="/dashboard/requests-permission/update">
                                                 <button
                                                     type="button"
@@ -188,23 +190,24 @@ const PermissionView: React.FC = () => {
                                                     <FaEdit />
                                                 </button>
                                             </Link>
-                                        {/* </Link> */}
+                                            {/* </Link> */}
 
-                                        <button
-                                            type="button"
-                                            className="btn btn-sm btn-danger"
-                                            onClick={() => handleRemovePermission(permission.id)}
-                                            aria-label="Remove Permission"
-                                        >
-                                            <FaTrash />
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                                            <button
+                                                type="button"
+                                                className="btn btn-sm btn-danger"
+                                                onClick={() => handleRemovePermission(permission.id)}
+                                                aria-label="Remove Permission"
+                                            >
+                                                <FaTrash />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </PaperBox>
         </div>
     );
 };

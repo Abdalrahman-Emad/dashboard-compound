@@ -400,9 +400,9 @@ export const DashboardNavbar = () => {
                     <NavLink
                         icon={<IconUser />}
                         component={RouterNavLink}
-                        label="users"
-                        to="#"
-                        active={isActiveLink('users')}
+                        label="profiles"
+                        to="view-profile"
+                        active={isActiveLink('Profiles')}
                     />
                     <NavLink label="vistors" icon={<IconId size={24} stroke={1.5} />} >
                         <NavLink
