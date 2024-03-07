@@ -31,7 +31,7 @@ const EditsBuilding: React.FC = () => {
 
     return (
         <Container size="xl">
-            <PageTitle title="Add Building" />
+            <PageTitle title="Edits Building" />
             <PaperBox>
                 <form onSubmit={handleSubmit}>
                     <div className="row mb-3 my-4">
