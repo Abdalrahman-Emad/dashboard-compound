@@ -235,6 +235,10 @@ const ComplaintsDetails: React.FC = () => {
     const [complainStatus, setComplainStatus] = useState('');
     const [comments, setComments] = useState('');
 
+    const [recording, setRecording] = useState(false);
+    const [audioURL, setAudioURL] = useState<string | null>(null);
+
+
     const handleSubmit = () => {
         // Handle form submission logic here
     };
@@ -245,18 +249,34 @@ const ComplaintsDetails: React.FC = () => {
         }
     };
 
+
+    
+    const startRecording = () => {
+        // Start recording logic
+        setRecording(true);
+    };
+
+    const stopRecording = () => {
+        // Stop recording logic
+        setRecording(false);
+        // Process recorded audio and set audioURL
+        const recordedAudioURL = ''; // Replace with recorded audio URL
+        setAudioURL(recordedAudioURL);
+    };
+
+
     return (
         <div>
             <PageTitle />
             <Grid>
                 <Grid.Col span={12}>
-                    <PaperBox>
+                <PaperBox>
                         <form onSubmit={handleSubmit}>
                             <Grid>
                                 <Grid.Col span={6}>
-                                    <Stack spacing="lg">
+                                    <Stack spacing="sm">
                                         <TextInput
-                                            label="Complain ID"
+                                            label="Complaint ID"
                                             value={complainId}
                                             onChange={(e) => setComplainId(e.target.value)}
                                         />
@@ -287,49 +307,8 @@ const ComplaintsDetails: React.FC = () => {
                                             value={unitType}
                                             onChange={(e) => setUnitType(e.target.value)}
                                         />
-                                        {/* Image upload input */}
-                                        <label
-                                            htmlFor="image-upload"
-                                            style={{
-                                                backgroundColor: 'teal',
-                                                color: 'white',
-                                                padding: '10px',
-                                                borderRadius: '5px',
-                                                cursor: 'pointer',
-                                                display: 'block',
-                                                marginTop: '20px',
-                                                width: '25%',
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            Upload Image
-                                            <input
-                                                id="image-upload"
-                                                type="file"
-                                                accept="image/*"
-                                                onChange={handleImageChange}
-                                                style={{ display: 'none' }}
-                                            />
-                                        </label>
-                                        {/* Image preview */}
-                                        {image && (
-                                            <img
-                                                src={URL.createObjectURL(image)}
-                                                alt="Preview"
-                                                style={{ marginTop: '20px', maxWidth: '60%' }}
-                                            />
-                                        )}
-                                    </Stack>
-                                </Grid.Col>
-                                <Grid.Col span={6}>
-                                    <Stack spacing="lg">
-                                        <TextInput
-                                            label="Creator"
-                                            value={replyCreator}
-                                            onChange={(e) => setReplyCreator(e.target.value)}
-                                        />
                                         <Select
-                                            label="Complain Priority"
+                                            label="Complaint Priority"
                                             value={complainPriority}
                                             onChange={(value) => setComplainPriority(value as string)}
                                             placeholder="Select Priority"
@@ -338,45 +317,129 @@ const ComplaintsDetails: React.FC = () => {
                                                 { label: 'Low', value: 'Low' },
                                             ]}
                                         />
-                                        <TextInput
-                                            label="Date Time"
-                                            type="datetime-local"
-                                            value={replyDateTime}
-                                            onChange={(e) => setReplyDateTime(e.target.value)}
-                                        />
-                                        <Text>Complain Status:</Text>
-                                        <select
-                                            className="form-select"
-                                            value={complainStatus}
-                                            onChange={(e) => setComplainStatus(e.target.value)}
-                                        >
-                                            <option value="open">Open</option>
-                                            <option value="in_progress">In Progress</option>
-                                            <option value="resolved">Resolved</option>
-                                            <option value="resolved">Closed</option>
-                                        </select>
+
                                         <Text>Comments:</Text>
                                         <textarea
                                             value={comments}
                                             onChange={(e) => setComments(e.target.value)}
-                                            rows={4}
-                                        />
-
-                                        <Text>Reply Details:</Text>
-                                        <textarea
-                                            value={replyDetails}
-                                            onChange={(e) => setReplyDetails(e.target.value)}
-                                            rows={4}
+                                            rows={3}
                                         />
                                     </Stack>
                                 </Grid.Col>
+
+                                {/* Voice recording controls */}
+                                <Grid.Col span={6}>
+                                    <Stack spacing="sm">
+                                        <Button onClick={startRecording} disabled={recording}>
+                                            Start Recording
+                                        </Button>
+                                        <Button onClick={stopRecording} disabled={!recording}>
+                                            Stop Recording
+                                        </Button>
+                                    </Stack>
+                                    {/* Display recorded audio */}
+                                    {audioURL && (
+                                        <audio controls>
+                                            <source src={audioURL} type="audio/wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    )}
+                                </Grid.Col>
                             </Grid>
+
                             {/* Submit button */}
-                            <Button className='my-4' color="teal" type="submit" fullWidth>
+                            <Button className="my-4" color="teal" type="submit" fullWidth>
                                 Save
                             </Button>
                         </form>
                     </PaperBox>
+                    <div style={{border:'10px', borderRadius:'50px'}}>
+                        <PageTitle title="Reply To Owner" />
+                        <Grid>
+                            <Grid.Col span={12}>
+                                <PaperBox>
+                                    <form onSubmit={handleSubmit}>
+                                        <Grid>
+                                            <Grid.Col span={7}>
+                                                <Stack spacing="sm">
+                                                    <TextInput
+                                                        label="Creator"
+                                                        value={replyCreator}
+                                                        onChange={(e) => setReplyCreator(e.target.value)}
+                                                    />
+                                                    <TextInput
+                                                        label="Date Time"
+                                                        type="datetime-local"
+                                                        value={replyDateTime}
+                                                        onChange={(e) => setReplyDateTime(e.target.value)}
+                                                    />
+                                                    <Text>Complaint Status:</Text>
+                                                    <select
+                                                        className="form-select"
+                                                        value={complainStatus}
+                                                        onChange={(e) => setComplainStatus(e.target.value)}
+                                                    >
+                                                        <option value="open">Open</option>
+                                                        <option value="in_progress">In Progress</option>
+                                                        <option value="resolved">Resolved</option>
+                                                        <option value="resolved">Closed</option>
+                                                    </select>
+
+                                                    <Text>Reply Details:</Text>
+                                                    <textarea
+                                                        value={replyDetails}
+                                                        onChange={(e) => setReplyDetails(e.target.value)}
+                                                        rows={3}
+                                                    />
+
+                                                    {/* Submit button */}
+                                                    <Button color="teal" type="submit" fullWidth>
+                                                        Save
+                                                    </Button>
+                                                </Stack>
+                                            </Grid.Col>
+                                            <Grid.Col span={5}>
+                                                <Stack spacing="sm">
+                                                    {/* Image upload input */}
+                                                    <label
+                                                        htmlFor="image-upload"
+                                                        style={{
+                                                            backgroundColor: 'teal',
+                                                            color: 'white',
+                                                            padding: '10px',
+                                                            borderRadius: '5px',
+                                                            cursor: 'pointer',
+                                                            display: 'block',
+                                                            marginTop: '20px',
+                                                            width: '100%',
+                                                            textAlign: 'center',
+                                                        }}
+                                                    >
+                                                        Upload Image
+                                                        <input
+                                                            id="image-upload"
+                                                            type="file"
+                                                            accept="image/*"
+                                                            onChange={handleImageChange}
+                                                            style={{ display: 'none' }}
+                                                        />
+                                                    </label>
+                                                    {/* Image preview */}
+                                                    {image && (
+                                                        <img
+                                                            src={URL.createObjectURL(image)}
+                                                            alt="Preview"
+                                                            style={{ marginTop: '20px', maxWidth: '100%' }}
+                                                        />
+                                                    )}
+                                                </Stack>
+                                            </Grid.Col>
+                                        </Grid>
+                                    </form>
+                                </PaperBox>
+                            </Grid.Col>
+                        </Grid>
+                    </div>
                 </Grid.Col>
             </Grid>
         </div>

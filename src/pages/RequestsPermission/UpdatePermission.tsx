@@ -74,6 +74,17 @@ const UpdatePermission: React.FC<UpdatePermissionProps> = ({ permission, onUpdat
                         disabled
                     />
                 </div>
+                <div className="mb-3">
+                    <label htmlFor="id" className="form-label">Unit Id:</label>
+                    <input
+                        type="id"
+                        id="id"
+                        className="form-control"
+                        value={permission.id}
+                        disabled
+                    />
+                </div>
+
             </div>
             <div className="col-md-6">
                 <div className="mb-3">
@@ -123,16 +134,6 @@ const UpdatePermission: React.FC<UpdatePermissionProps> = ({ permission, onUpdat
                         id="creator"
                         className="form-control"
                         value={permission.creator}
-                        disabled
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="id" className="form-label">Unit Id:</label>
-                    <input
-                        type="id"
-                        id="id"
-                        className="form-control"
-                        value={permission.id}
                         disabled
                     />
                 </div>

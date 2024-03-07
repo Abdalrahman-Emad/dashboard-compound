@@ -132,7 +132,7 @@ const VisitorForm: React.FC<VisitorFormProps> = ({
             <div className="d-flex justify-content-end my-2">
                 <button
                     type="button"
-                    className="btn btn-danger btn-group-sm"
+                    className="btn btn-danger btn-sm"
                     onClick={() => onRemoveVisitor(visitorIndex)}
                     aria-label={`Remove Visitor ${visitorIndex + 1}`}
                 >

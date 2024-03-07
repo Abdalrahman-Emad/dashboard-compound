@@ -72,6 +72,13 @@ import UpdatePermission from './pages/RequestsPermission/UpdatePermission';
 import AddOwnerProfile from './pages/Profile/AddOwnerProfile';
 import ViewProfile from './pages/Profile/ViewProfile';
 import Updates from './pages/Profile/Updates';
+import AddGrade from './pages/MyCommunity/AddGrade';
+import Grade from './pages/MyCommunity/Grade';
+import EditsGrade from './pages/MyCommunity/EditsGrade';
+import Building from './pages/MyCommunity/Building';
+import AddBuilding from './pages/MyCommunity/AddBuildings';
+import EditsBuilding from './pages/MyCommunity/EditsBuilding';
+
 
 interface ProfileData {
     ownerName: string;
@@ -242,6 +249,44 @@ const router = createBrowserRouter([
                                 element: <AddResidentPage />,
                             },
                         ],
+                    },
+                    {
+                        path: 'building',
+                        children: [
+                            {
+                                path:'',
+                                element:  <Building/>
+                            },
+
+                            {
+                                    path: 'add-building',
+                                    element: <AddBuilding/>
+                            },
+                            {
+                                path: 'edit-building',
+                                element: <EditsBuilding/>
+                            }
+                        ]
+                    },
+
+
+                    {
+                        path: 'grade',
+                        children: [
+                            {
+                                path:'',
+                                element:  <Grade/>
+                            },
+
+                            {
+                                    path: 'add-grade',
+                                    element: <AddGrade/>
+                            },
+                            {
+                                path: 'edit-grade',
+                                element: <EditsGrade/>
+                            }
+                        ]
                     },
 
                     {

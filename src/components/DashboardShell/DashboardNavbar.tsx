@@ -11,7 +11,7 @@ import {
     IconLicense,
     IconLayout2,
     IconChartPie,
-    IconId ,
+    IconId,
 } from '@tabler/icons';
 import { NavLink as RouterNavLink, useLocation } from 'react-router-dom';
 
@@ -37,7 +37,7 @@ export const DashboardNavbar = () => {
                         to="."
                         active={isActiveLink('dashboard')}
                     />
-                    
+
                     <NavLink label="My Community" icon={<IconLayout2 size={24} stroke={1.5} />} childrenOffset={28}>
                         <NavLink
                             color="dark"
@@ -60,6 +60,22 @@ export const DashboardNavbar = () => {
                             to="community/residents"
                             active={isActiveLink('residents')}
                         />
+                        <NavLink
+                            color="dark"
+                            component={RouterNavLink}
+                            label="Building"
+                            to="community/building"
+                            active={isActiveLink('building')}
+                        />
+
+                        <NavLink
+                            color="dark"
+                            component={RouterNavLink}
+                            label="Grade"
+                            to="community/grade"
+                            active={isActiveLink('grade')}
+                        />
+
                         <NavLink
                             color="dark"
                             component={RouterNavLink}
@@ -404,7 +420,7 @@ export const DashboardNavbar = () => {
                         to="view-profile"
                         active={isActiveLink('Profiles')}
                     />
-                    <NavLink label="vistors" icon={<IconId size={24} stroke={1.5} />} >
+                    <NavLink label="vistors" icon={<IconId size={24} stroke={1.5} />}>
                         <NavLink
                             color="dark"
                             component={RouterNavLink}

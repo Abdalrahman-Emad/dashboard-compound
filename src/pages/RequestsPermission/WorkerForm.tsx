@@ -129,7 +129,7 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                     </div>
                 </div>
             </div>
-            <div className="row">
+            {/* <div className="row">
                 <div className="col-md-6">
                     <div className="mb-3">
                         <label className="form-label">From Date:</label>
@@ -152,7 +152,7 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                         />
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="row">
                 <div className="col-md-6 mb-3">
                     <label htmlFor={`idCardPhoto${workerIndex}`} className="form-label">

@@ -57,6 +57,12 @@ export default function AddUnitsPage(): JSX.Element {
     const [outsideSpace, setOutsideSpace] = useState<string>('');
     const [unitSales, setUnitSales] = useState<string>('');
 
+    const [unitKey, setunitKey] = useState<string>('');
+    const [grade, setgrade] = useState<string>('');
+    const [intialDeliveryDate, setintialDeliveryDate] = useState<string>('');
+    const [finalDeliveryDate, setfinalDeliveryDate] = useState<string>('');
+    const [actualDelivery, setactualDelivery] = useState<string>('');
+
     const handleSubmit = () => {
         // Handle form submission logic here
     };
@@ -161,15 +167,81 @@ export default function AddUnitsPage(): JSX.Element {
                                 <Grid>
                                     <Grid.Col span={6}>
                                         <Stack spacing="md">
+                                            <Select
+                                                data={[
+                                                    { label: 'Available', value: 'Available' },
+                                                    { label: 'Not Available', value: 'Not Available' },
+                                                    { label: 'Delivered', value: 'Delivered' },
+                                                ]}
+                                                value={unitKey}
+                                                onChange={(value) => setunitKey(value as string)}
+                                                label="Unit Key"
+                                                placeholder="Select Unit Key"
+                                            />{' '}
+                                            <Select
+                                                data={[
+                                                    { label: '5', value: '5' },
+                                                    { label: '6', value: '6' },
+                                                    { label: '7', value: '7' },
+                                                ]}
+                                                value={grade}
+                                                onChange={(value) => setgrade(value as string)}
+                                                label="Grade"
+                                                placeholder="Select Grade"
+                                            />
+                                            <TextInput
+                                                label="Completion Date"
+                                                value={completionDate}
+                                                onChange={(e) => setCompletionDate(e.target.value)}
+                                            />
+                                        </Stack>
+                                    </Grid.Col>
+
+                                    <Grid.Col span={6}>
+                                        <Stack spacing="md">
+                                            <TextInput
+                                                label="Final delivery date"
+                                                type="date"
+                                                value={finalDeliveryDate}
+                                                onChange={(e) => setfinalDeliveryDate(e.target.value)}
+                                            />
+                                            <TextInput
+                                                label="Initial delivery date"
+                                                type="date"
+                                                value={intialDeliveryDate}
+                                                onChange={(e) => setintialDeliveryDate(e.target.value)}
+                                            />
+                                            <Select
+                                                data={[
+                                                    { label: 'Yes', value: 'Yes' },
+                                                    { label: 'No', value: 'No' },
+                                                ]}
+                                                value={actualDelivery}
+                                                onChange={(value) => setactualDelivery(value as string)}
+                                                label="Actual delivery "
+                                                placeholder="Select Actual delivery "
+                                            />
+                                        </Stack>
+                                    </Grid.Col>
+                                </Grid>
+                                <Grid>
+                                    <Grid.Col span={6}>
+                                        <Stack spacing="md">
                                             <TextInput
                                                 label="Construction Position"
                                                 value={constructionPosition}
                                                 onChange={(e) => setConstructionPosition(e.target.value)}
                                             />
-                                            <TextInput
-                                                label="Amenities"
+                                            <Select
+                                                data={[
+                                                    { label: 'Private Garden', value: 'Private Garden' },
+                                                    { label: 'Options 2', value: 'Options 2' },
+                                                    { label: 'Options 3', value: 'Options 2' },
+                                                ]}
                                                 value={amenities}
-                                                onChange={(e) => setAmenities(e.target.value)}
+                                                onChange={(value) => setAmenities(value as string)}
+                                                label="Amenities"
+                                                placeholder="Select Amenities"
                                             />
                                             <TextInput
                                                 label="Building Area"
@@ -362,21 +434,53 @@ export default function AddUnitsPage(): JSX.Element {
                                             />
                                         </Stack>
                                     </Grid.Col>
+                                </Grid>
+                                {/* Add the image upload button and preview section */}
+                                <Grid>
                                     <Grid.Col span={6}>
                                         <Stack spacing="md">
-                                    <TextInput
-                                                label="Completion Date"
-                                                value={completionDate}
-                                                onChange={(e) => setCompletionDate(e.target.value)}
-                                            />
-                                            </Stack>
-                                            </Grid.Col>
-
+                                            <Box mt={5}>
+                                                <label
+                                                    htmlFor="image-upload"
+                                                    style={{
+                                                        backgroundColor: 'teal',
+                                                        color: 'white',
+                                                        padding: '10px',
+                                                        borderRadius: '5px',
+                                                        cursor: 'pointer',
+                                                    }}
+                                                >
+                                                    Upload Image
+                                                    <input
+                                                        id="image-upload"
+                                                        type="file"
+                                                        accept="image/*"
+                                                        onChange={handleImageChange}
+                                                        style={{ display: 'none' }}
+                                                    />
+                                                </label>
+                                            </Box>
+                                        </Stack>
+                                    </Grid.Col>
+                                    <Grid.Col span={6}>
+                                        <Stack spacing="md">
+                                            <PaperBox>
+                                                {/* Display the selected image */}
+                                                {image && (
+                                                    <img
+                                                        src={URL.createObjectURL(image)}
+                                                        alt="Uploaded"
+                                                        style={{ width: '100%' }}
+                                                    />
+                                                )}
+                                            </PaperBox>
+                                        </Stack>
+                                    </Grid.Col>
                                 </Grid>
                             </Stack>
-                            <Box mt={5} display="flex">
-                                {/* Image upload input */}
-                                <label
+                            {/* <Box mt={5} display="flex"> */}
+                            {/* Image upload input */}
+                            {/* <label
                                     htmlFor="image-upload"
                                     style={{
                                         width: '11%',
@@ -398,12 +502,12 @@ export default function AddUnitsPage(): JSX.Element {
                                         style={{ display: 'none' }}
                                     />
                                 </label>
-                            </Box>
+                            </Box> */}
                             {/* Image preview section */}
-                            <Grid.Col span={4}>
-                                <PaperBox>
-                                    {/* Display the selected image */}
-                                    {image && (
+                            {/* <Grid.Col  span={4}>
+                                <PaperBox> */}
+                            {/* Display the selected image */}
+                            {/* {image && (
                                         <img
                                             src={URL.createObjectURL(image)}
                                             alt="Uploaded"
@@ -411,7 +515,7 @@ export default function AddUnitsPage(): JSX.Element {
                                         />
                                     )}
                                 </PaperBox>
-                            </Grid.Col>
+                            </Grid.Col> */}
                             <Button className="w-100 my-3" color="teal" type="submit">
                                 Save
                             </Button>
