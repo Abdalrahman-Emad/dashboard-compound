@@ -156,7 +156,7 @@ const ComplaintsDetails: React.FC = () => {
                                 </Grid.Col>
                             </Grid>
                             <Button className="my-4" color="teal" type="submit" fullWidth>
-                                Save
+                                Update
                             </Button>
                         </form>
                     </PaperBox>
@@ -202,7 +202,7 @@ const ComplaintsDetails: React.FC = () => {
                                             />
                                             {/* Submit button */}
                                             <Button color="teal" type="submit" fullWidth>
-                                                Save
+                                                Update
                                             </Button>
                                         </Stack>
                                     </Grid.Col>

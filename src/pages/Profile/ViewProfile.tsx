@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import PaperBox from '../../components/PaperBox';
 import { Link } from 'react-router-dom';
+import PageTitle from '../../components/PageTitle';
 
 // Define the interface for profile data
 interface ProfileData {
@@ -69,12 +70,12 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ profileData }) => {
 
     return (
         <div className="container mt-4">
-            <h1>View Profile</h1>
+            <PageTitle title="View Profile" />
 
             <PaperBox>
                 <div className="d-flex justify-content-end align-items-end mb-4">
                     <Link to="/dashboard/add-owner-profile">
-                        <button className="btn btn-primary">Add</button>
+                        <button className="btn btn-primary">Add Profile</button>
                     </Link>
                 </div>
                 <div className="row mb-3">

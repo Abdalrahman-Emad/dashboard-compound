@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PaperBox from '../../components/PaperBox';
+import PageTitle from '../../components/PageTitle';
 
 interface AddOwnerProfileProps {
     onAddOwner: (owner: OwnerData) => void;
@@ -125,9 +126,10 @@ const AddOwnerProfile: React.FC<AddOwnerProfileProps> = ({ onAddOwner }) => {
     return (
         <div className="container py-4">
             <div className="row justify-content-center">
+            <PageTitle title='Add Owner Profile'/>
+
                 <div className="col-md-12">
                     <div className="card shadow">
-                        <h1 className="card-header">Add Owner Profile</h1>
                         <PaperBox>
                         <div className="card-body">
                             <form onSubmit={handleSubmit}>
@@ -471,7 +473,7 @@ const AddOwnerProfile: React.FC<AddOwnerProfileProps> = ({ onAddOwner }) => {
                                     <div className="col">
                                         <Link to="/dashboard/view-profile">
                                             {' '}
-                                            <button type="submit" className="btn btn-primary">
+                                            <button type="submit" className="w-100 btn btn-primary">
                                                 Submit
                                             </button>
                                         </Link>
