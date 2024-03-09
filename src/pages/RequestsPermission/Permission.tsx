@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import VisitorForm from './VisitorForm';
 import PermissionView from './PermissionView';
 import PaperBox from '../../components/PaperBox';
+import HostingForm from './HostingForm';
 
 interface WorkerData {
     firstName: string;
@@ -17,7 +18,22 @@ interface WorkerData {
     carId: string;
     IdWorker: string;
     [key: string]: string;
-    workerStatus:string;
+    workerStatus: string;
+}
+
+interface HostingData {
+    Name: string;
+    idCardPhoto: string;
+    image: string;
+    reason: string;
+    fromDate: string;
+    toDate: string;
+    cost: string;
+    carId: string;
+    Id: string;
+    relation: string;
+    [key: string]: string;
+    hostingStatus: string;
 }
 
 interface VisitorData {
@@ -27,7 +43,7 @@ interface VisitorData {
     carNumber: string;
     reason: string;
     [key: string]: string;
-    visitorStatus:string;
+    visitorStatus: string;
 }
 
 interface PermissionForm {
@@ -41,11 +57,14 @@ interface PermissionForm {
     time: string;
     workerData: WorkerData[];
     visitorData: VisitorData[]; // Add visitorData array
+    hostingData: HostingData[]; // Add hostingData array
     reason: string;
     status: string;
     unitStatus: string;
     creator: string;
+    notes:string;
 }
+
 
 const Permission: React.FC = () => {
     const [permitType, setPermitType] = useState<string>('');
@@ -57,6 +76,7 @@ const Permission: React.FC = () => {
         id: '',
         date: '',
         time: '',
+        notes:'',
         workerData: [
             {
                 firstName: '',
@@ -69,10 +89,25 @@ const Permission: React.FC = () => {
                 cost: '',
                 fromDate: '',
                 toDate: '',
-                workerStatus:'',
+                workerStatus: '',
             },
         ],
-        visitorData: [{ name: '', idCard: '', phone: '', carNumber: '', reason: '', visitorStatus:'' }], // Add visitorData
+        visitorData: [{ name: '', idCard: '', phone: '', carNumber: '', reason: '', visitorStatus: '' }],
+        hostingData: [
+            {
+                Name: '',
+                idCardPhoto: '',
+                image: '',
+                reason: '',
+                fromDate: '',
+                toDate: '',
+                cost: '',
+                carId: '',
+                Id: '',
+                relation: '',
+                hostingStatus: '',
+            },
+        ],
         reason: '',
         status: '',
         unitId: '',
@@ -114,7 +149,7 @@ const Permission: React.FC = () => {
                     toDate: '',
                     carId: '',
                     IdWorker: '',
-                    workerStatus:'',
+                    workerStatus: '',
                 },
             ],
         }));
@@ -130,7 +165,10 @@ const Permission: React.FC = () => {
     const handleAddVisitor = () => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            visitorData: [...prevFormData.visitorData, { name: '', idCard: '', phone: '', carNumber: '', reason: '',visitorStatus:'' }],
+            visitorData: [
+                ...prevFormData.visitorData,
+                { name: '', idCard: '', phone: '', carNumber: '', reason: '', visitorStatus: '' },
+            ],
         }));
     };
 
@@ -139,6 +177,52 @@ const Permission: React.FC = () => {
             ...prevFormData,
             visitorData: prevFormData.visitorData.filter((_, i) => i !== index),
         }));
+    };
+
+    const handleAddHosting = () => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            hostingData: [
+                ...prevFormData.hostingData,
+                {
+                    Name: '',
+                    idCardPhoto: '',
+                    image: '',
+                    reason: '',
+                    fromDate: '',
+                    toDate: '',
+                    cost: '',
+                    carId: '',
+                    Id: '',
+                    relation: '',
+                    hostingStatus: '',
+                },
+            ],
+        }));
+    };
+
+    const handleRemoveHosting = (index: number) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            hostingData: prevFormData.hostingData.filter((_, i) => i !== index),
+        }));
+    };
+
+    const handleHostingChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        index: number,
+        field: string,
+    ) => {
+        const newHostingData = [...formData.hostingData];
+        newHostingData[index][field] = e.target.value;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            hostingData: newHostingData,
+        }));
+    };
+
+    const handleHostingFileChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        // Handle file change for hosting permit
     };
 
     const handleVisitorChange = (
@@ -207,219 +291,273 @@ const Permission: React.FC = () => {
                         <div className="card shadow">
                             <h1 className="card-header">Permission Form</h1>
                             <PaperBox>
-                            <div className="card-body">
-                                <form onSubmit={handleSubmit}>
-                                    <div className="mb-3">
-                                        <label htmlFor="permitType" className="form-label">
-                                            Select Permit Type:
-                                        </label>
-                                        <select
-                                            id="permitType"
-                                            className="form-select"
-                                            value={permitType}
-                                            onChange={handlePermitTypeChange}
-                                        >
-                                            <option value="">Select Type</option>
-                                            <option value="labor">Labor</option>
-                                            <option value="visitor">Visitor</option>
-                                        </select>
-                                    </div>
-                                    {permitType && (
-                                        <>
-                                            <div className="row mb-3">
-                                                <div className="col-md-6">
-                                                    <label htmlFor="projectName" className="form-label">
-                                                        Project Name:
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        id="projectName"
-                                                        name="projectName"
-                                                        placeholder="Enter Project Name"
-                                                        className="form-control"
-                                                        value={formData.projectName}
-                                                        onChange={handleChange}
-                                                    />
-                                                </div>
+                                <div className="card-body">
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="mb-4">
+                                            <h5  className="form-label">
+                                                Select Permit Type:
+                                            </h5>
+                                            <select
+                                                id="permitType"
+                                                className="form-select"
+                                                value={permitType}
+                                                onChange={handlePermitTypeChange}
+                                                style={{
+                                                    border: '1px solid #ced4da', // Border color
+                                                    padding: '0.375rem 0.75rem', // Padding
+                                                    borderRadius: '0.25rem', // Border radius
+                                                }}
+                                            >
+                                                <option value="">Select Type</option>
+                                                <option style={{ marginBottom: '0.5rem' }} value="labor">
+                                                    Labor
+                                                </option>
+                                                <option style={{ marginBottom: '0.5rem' }} value="visitor">
+                                                    Visitor
+                                                </option>
+                                                <option style={{ marginBottom: '0.5rem' }} value="hosting">
+                                                    Hosting
+                                                </option>{' '}
+                                                {/* Add hosting permit option */}
+                                            </select>
+                                        </div>
+                                        {permitType && (
+                                            <>
+                                                <div className="row mb-3">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="projectName" className="form-label">
+                                                            Project Name:
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="projectName"
+                                                            name="projectName"
+                                                            placeholder="Enter Project Name"
+                                                            className="form-control"
+                                                            value={formData.projectName}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
 
-                                                <div className="col-md-6">
-                                                    <label htmlFor="unitName" className="form-label">
-                                                        Unit Name:
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        id="unitName"
-                                                        name="unitName"
-                                                        placeholder="Enter Unit Name"
-                                                        className="form-control"
-                                                        value={formData.unitName}
-                                                        onChange={handleChange}
-                                                    />
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="unitName" className="form-label">
+                                                            Unit Name:
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="unitName"
+                                                            name="unitName"
+                                                            placeholder="Enter Unit Name"
+                                                            className="form-control"
+                                                            value={formData.unitName}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="row mb-3">
-                                                <div className="col-md-6">
-                                                    <label htmlFor="owner" className="form-label">
-                                                        Owner:
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        id="owner"
-                                                        className="form-control"
-                                                        value={formData.owner}
-                                                        onChange={handleChange}
-                                                    />
+                                                <div className="row mb-3">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="owner" className="form-label">
+                                                            Owner:
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="owner"
+                                                            placeholder='Enter Owner'
+                                                            className="form-control"
+                                                            value={formData.owner}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="unitid" className="form-label">
+                                                            Unit ID:
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="unitid"
+                                                            placeholder='Enter Unit ID'
+                                                            className="form-control"
+                                                            value={formData.unitId}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
                                                 </div>
-                                                <div className="col-md-6">
-                                                    <label htmlFor="unitid" className="form-label">
-                                                        Unit ID:
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        id="unitid"
-                                                        className="form-control"
-                                                        value={formData.unitId}
-                                                        onChange={handleChange}
-                                                    />
+                                                <div className="row mb-3">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="id" className="form-label">
+                                                            Permission ID:
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="id"
+                                                            placeholder='Enter Permission ID'
+                                                            className="form-control"
+                                                            value={formData.id}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="status" className="form-label">
+                                                            Permission Status:
+                                                        </label>
+                                                        <select
+                                                            id="status"
+                                                            placeholder='Enter Status Permission'
+                                                            className="form-select"
+                                                            value={formData.status}
+                                                        >
+                                                            <option value="">Select status</option>
+                                                            <option value="active">Active</option>
+                                                            <option value="inactive">Inactive</option>
+                                                            <option value="pending">Pending</option>
+                                                            {/* Add more options as needed */}
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="row mb-3">
-                                                <div className="col-md-6">
-                                                    <label htmlFor="id" className="form-label">
-                                                        Permission ID:
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        id="id"
-                                                        className="form-control"
-                                                        value={formData.id}
-                                                        onChange={handleChange}
-                                                    />
+                                                <div className="row mb-3">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="creator" className="form-label">
+                                                            Creator:
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="owner"
+                                                            placeholder='Enter Creator'
+                                                            className="form-control"
+                                                            value={formData.creator}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="unitstatus" className="form-label">
+                                                            Unit Status:
+                                                        </label>
+                                                        <select
+                                                            id="unitStatus"
+                                                            className="form-select"
+                                                            value={formData.unitStatus}
+                                                        >
+                                                            <option value="">Select Unit status</option>
+                                                            <option value="active">Active</option>
+                                                            <option value="inactive">Inactive</option>
+                                                            <option value="pending">Pending</option>
+                                                            {/* Add more options as needed */}
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div className="col-md-6">
-                                                    <label htmlFor="status" className="form-label">
-                                                        Status:
-                                                    </label>
-                                                    <select id="status" className="form-select" value={formData.status}>
-                                                        <option value="">Select status</option>
-                                                        <option value="active">Active</option>
-                                                        <option value="inactive">Inactive</option>
-                                                        <option value="pending">Pending</option>
+                                                <div className="row mb-3">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="date" className="form-label">
+                                                            Date:
+                                                        </label>
+                                                        <input
+                                                            type="date"
+                                                            id="date"
+                                                            name="date"
+                                                            className="form-control"
+                                                            value={formData.date}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="time" className="form-label">
+                                                            Time:
+                                                        </label>
+                                                        <input
+                                                            type="time"
+                                                            id="time"
+                                                            name="time"
+                                                            className="form-control"
+                                                            value={formData.time}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6 my-3">
+                                                        <label htmlFor="Notes" className="form-label">
+                                                            Notes:
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="notes"
+                                                            placeholder='Enter Notes'
+                                                            className="form-control"
+                                                            value={formData.notes}
+                                                            onChange={handleChange}
+                                                        />
+                                                        </div>
 
-                                                        {/* Add more options as needed */}
-                                                    </select>
                                                 </div>
-                                            </div>
-                                            <div className="row mb-3">
-                                                <div className="col-md-6">
-                                                    <label htmlFor="creator" className="form-label">
-                                                        Creator:
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        id="owner"
-                                                        className="form-control"
-                                                        value={formData.creator}
-                                                        onChange={handleChange}
-                                                    />
+                                                {permitType === 'visitor' &&
+                                                    formData.visitorData.map((visitor, index) => (
+                                                        <VisitorForm
+                                                            key={index}
+                                                            visitor={visitor}
+                                                            visitorIndex={index}
+                                                            onRemoveVisitor={handleRemoveVisitor}
+                                                            onVisitorChange={handleVisitorChange}
+                                                            onVisitorFileChange={handleVisitorFileChange}
+                                                        />
+                                                    ))}
+                                                {permitType === 'labor' &&
+                                                    formData.workerData.map((worker, index) => (
+                                                        <WorkerForm
+                                                            key={index}
+                                                            worker={worker}
+                                                            workerIndex={index}
+                                                            onRemoveWorker={handleRemoveWorker}
+                                                            onWorkerChange={handleWorkerChange}
+                                                            onWorkerFileChange={handleWorkerFileChange}
+                                                        />
+                                                    ))}
+                                                {permitType === 'hosting' && // Render HostingForm for hosting permit
+                                                    formData.hostingData.map((hosting, index) => (
+                                                        <HostingForm
+                                                            key={index}
+                                                            hosting={hosting}
+                                                            hostingIndex={index}
+                                                            onRemoveHosting={handleRemoveHosting}
+                                                            onHostingChange={handleHostingChange}
+                                                            onHostingFileChange={handleHostingFileChange}
+                                                        />
+                                                    ))}
+                                                <div className="text-center">
+                                                    {permitType === 'labor' && (
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-primary mx-2"
+                                                            onClick={handleAddWorker}
+                                                        >
+                                                            Add Worker
+                                                        </button>
+                                                    )}
+                                                    {permitType === 'visitor' && (
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-primary mx-2"
+                                                            onClick={handleAddVisitor}
+                                                        >
+                                                            Add Visitor
+                                                        </button>
+                                                    )}
+                                                    {permitType === 'hosting' && (
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-primary mx-2"
+                                                            onClick={handleAddHosting}
+                                                        >
+                                                            Add Hosting
+                                                        </button>
+                                                    )}
+                                                    <Link to="/dashboard/requests-permission/view">
+                                                        <button type="submit" className="btn btn-success">
+                                                            Submit
+                                                        </button>
+                                                    </Link>
                                                 </div>
-                                                <div className="col-md-6">
-                                                    <label htmlFor="unitstatus" className="form-label">
-                                                        Unit Status:
-                                                    </label>
-                                                    <select
-                                                        id="unitStatus"
-                                                        className="form-select"
-                                                        value={formData.unitStatus}
-                                                    >
-                                                        <option value="">Select Unit status</option>
-                                                        <option value="active">Active</option>
-                                                        <option value="inactive">Inactive</option>
-                                                        <option value="pending">Pending</option>
-
-                                                        {/* Add more options as needed */}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="row mb-3">
-                                                <div className="col-md-6">
-                                                    <label htmlFor="date" className="form-label">
-                                                        Date:
-                                                    </label>
-                                                    <input
-                                                        type="date"
-                                                        id="date"
-                                                        name="date"
-                                                        className="form-control"
-                                                        value={formData.date}
-                                                        onChange={handleChange}
-                                                    />
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <label htmlFor="time" className="form-label">
-                                                        Time:
-                                                    </label>
-                                                    <input
-                                                        type="time"
-                                                        id="time"
-                                                        name="time"
-                                                        className="form-control"
-                                                        value={formData.time}
-                                                        onChange={handleChange}
-                                                    />
-                                                </div>
-                                            </div>
-                                            {permitType === 'visitor' &&
-                                                formData.visitorData.map((visitor, index) => (
-                                                    <VisitorForm
-                                                        key={index}
-                                                        visitor={visitor}
-                                                        visitorIndex={index}
-                                                        onRemoveVisitor={handleRemoveVisitor}
-                                                        onVisitorChange={handleVisitorChange}
-                                                        onVisitorFileChange={handleVisitorFileChange}
-                                                    />
-                                                ))}
-                                            {permitType === 'labor' &&
-                                                formData.workerData.map((worker, index) => (
-                                                    <WorkerForm
-                                                        key={index}
-                                                        worker={worker}
-                                                        workerIndex={index}
-                                                        onRemoveWorker={handleRemoveWorker}
-                                                        onWorkerChange={handleWorkerChange}
-                                                        onWorkerFileChange={handleWorkerFileChange}
-                                                    />
-                                                ))}
-                                            <div className="text-center">
-                                                {permitType === 'labor' && (
-                                                    <button
-                                                        type="button"
-                                                        className="btn btn-primary mx-2"
-                                                        onClick={handleAddWorker}
-                                                    >
-                                                        Add Worker
-                                                    </button>
-                                                )}
-                                                {permitType === 'visitor' && (
-                                                    <button
-                                                        type="button"
-                                                        className="btn btn-primary mx-2"
-                                                        onClick={handleAddVisitor}
-                                                    >
-                                                        Add Visitor
-                                                    </button>
-                                                )}
-                                                <Link to="/dashboard/requests-permission/view">
-                                                    <button type="submit" className="btn btn-success">
-                                                        Submit
-                                                    </button>
-                                                </Link>
-                                            </div>
-                                        </>
-                                    )}
-                                </form>
-                            </div>
+                                            </>
+                                        )}
+                                    </form>
+                                </div>
                             </PaperBox>
                         </div>
                     </div>

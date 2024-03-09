@@ -106,7 +106,7 @@ const ComplaintsDetails: React.FC = () => {
                                     </Stack>
                                 </Grid.Col>
 
-                                <Grid.Col style={{ marginLeft: '90px' }} span={5}>
+                                <Grid.Col  span={6}>
                                     <PaperBox>
                                         <div
                                             style={{

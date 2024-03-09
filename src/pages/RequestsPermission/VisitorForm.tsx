@@ -6,7 +6,7 @@ interface VisitorData {
     phone: string;
     carNumber: string;
     [key: string]: string;
-    visitorStatus:string;
+    visitorStatus: string;
 }
 
 interface VisitorFormProps {
@@ -100,7 +100,9 @@ const VisitorForm: React.FC<VisitorFormProps> = ({
                             name={`visitorStatus${visitorIndex}`}
                             className="form-select"
                             value={visitor.visitorStatus}
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onVisitorChange(e, visitorIndex, 'visitorStatus')}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                                onVisitorChange(e, visitorIndex, 'visitorStatus')
+                            }
                             aria-label={`Visitor Status of Visitor ${visitorIndex + 1}`}
                         >
                             <option value="">Select Visitor Status</option>
@@ -113,7 +115,7 @@ const VisitorForm: React.FC<VisitorFormProps> = ({
                 <div className="col-md-6">
                     <div className="mb-3">
                         <label htmlFor={`idCardPhoto${visitorIndex}`} className="form-label">
-                            Upload ID Card Photo :
+                            Upload Car ID Photo :
                         </label>
                         <input
                             type="file"
