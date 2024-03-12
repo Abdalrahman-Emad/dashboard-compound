@@ -219,18 +219,22 @@ const FamilyDetails: React.FC = () => {
                                     </div>
                                     <div className="row mb-3">
                                         <div className="col">
-                                            <label htmlFor="placeOfWork" className="form-label">
-                                                Place of Work
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="placeOfWork"
-                                                placeholder="Place of Work"
-                                                name="placeOfWork"
-                                                value={family.placeOfWork}
-                                                onChange={handleChange}
-                                            />
+                                        <label htmlFor="placeOfWork" className="form-label">
+                                                    Place of Work
+                                                </label>
+                                                <select
+                                                    className="form-select"
+                                                    id="placeOfWork"
+                                                    name="placeOfWork"
+                                                    value={family.placeOfWork}
+                                                    onChange={handleChange}
+                                                >
+                                                    <option value="">Select Place of Work</option>
+                                                    <option value="office">Office</option>
+                                                    <option value="home">Home</option>
+                                                    <option value="remote">Remote</option>
+                                                    {/* Add more options as needed */}
+                                                </select>
                                         </div>
                                         <div className="col">
                                             <label htmlFor="workMobile" className="form-label">

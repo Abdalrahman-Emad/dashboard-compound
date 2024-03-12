@@ -175,7 +175,7 @@ const AddOwnerProfile: React.FC<AddOwnerProfileProps> = ({ onAddOwner }) => {
                                                     type="text"
                                                     className="form-control"
                                                     id="nationality"
-                                                    placeholder="Enter Nationality"
+                                                    placeholder="Nationality"
                                                     name="nationality"
                                                     value={owner.nationality}
                                                     onChange={handleChange}
