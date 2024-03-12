@@ -19,6 +19,8 @@ const AddComplaintsPage: React.FC = () => {
     const [replyDateTime, setReplyDateTime] = useState('');
     const [complainStatus, setComplainStatus] = useState('');
     const [comments, setComments] = useState('');
+    const [owner, setOwner] = useState('');
+    const [AdminComment, setAdminComment] = useState('');
 
     const [recording, setRecording] = useState(false);
     const [audioURL, setAudioURL] = useState<string | null>(null);
@@ -56,9 +58,22 @@ const AddComplaintsPage: React.FC = () => {
                             <Grid>
                                 <Grid.Col span={6}>
                                     <Stack spacing="sm">
+                                        <Select
+                                            label="Project Name"
+                                            value={categoryName}
+                                            onChange={(value) => setCategoryName(value as string)}
+                                            placeholder="Select Project Name"
+                                            data={[
+                                                { label: 'Blue blue', value: 'Blue blue' },
+                                                { label: 'HQ', value: 'HQ' },
+                                                { label: 'Lavida', value: 'Lavida' },
+                                            ]}
+                                        />
+
                                         <TextInput
                                             label="Complaint ID"
                                             value={complainId}
+                                            placeholder='Enter Complain ID'
                                             onChange={(e) => setComplainId(e.target.value)}
                                         />
                                         <Select
@@ -74,17 +89,27 @@ const AddComplaintsPage: React.FC = () => {
                                         />
                                         <TextInput
                                             label="Location"
+                                            placeholder='Location'
                                             value={location}
                                             onChange={(e) => setLocation(e.target.value)}
                                         />
                                         <TextInput
+                                            label="Owner"
+                                            value={owner}
+                                            placeholder='Owner'
+                                            onChange={(e) => setOwner(e.target.value)}
+                                        />
+
+                                        <TextInput
                                             label="Unit"
                                             value={unit}
+                                            placeholder='Enter Unit'
                                             onChange={(e) => setUnit(e.target.value)}
                                         />
                                         <TextInput
                                             label="Unit Type"
                                             value={unitType}
+                                            placeholder='Enter Unit Type'
                                             onChange={(e) => setUnitType(e.target.value)}
                                         />
                                         <Select
@@ -170,11 +195,19 @@ const AddComplaintsPage: React.FC = () => {
                         <PaperBox>
                             <form onSubmit={handleSubmit}>
                                 <Grid>
-                                    <Grid.Col span={7}>
+                                    <Grid.Col span={6}>
                                         <Stack spacing="sm">
+                                            <Text>Reply Details:</Text>
+                                            <textarea
+                                                value={replyDetails}
+                                                onChange={(e) => setReplyDetails(e.target.value)}
+                                                rows={3}
+                                            />
+
                                             <TextInput
                                                 label="Creator"
                                                 value={replyCreator}
+                                                placeholder='Enter Creator Name'
                                                 onChange={(e) => setReplyCreator(e.target.value)}
                                             />
                                             <TextInput
@@ -194,19 +227,20 @@ const AddComplaintsPage: React.FC = () => {
                                                 <option value="resolved">Resolved</option>
                                                 <option value="resolved">Closed</option>
                                             </select>
-                                            <Text>Reply Details:</Text>
+                                            <Text>Admin Comments:</Text>
                                             <textarea
-                                                value={replyDetails}
-                                                onChange={(e) => setReplyDetails(e.target.value)}
+                                                value={AdminComment}
+                                                onChange={(e) => setAdminComment(e.target.value)}
                                                 rows={3}
                                             />
+
                                             {/* Submit button */}
                                             <Button color="teal" type="submit" fullWidth>
                                                 Save
                                             </Button>
                                         </Stack>
                                     </Grid.Col>
-                                    <Grid.Col style={{ marginLeft: '80px' }} span={4}>
+                                    <Grid.Col span={6}>
                                         <Stack spacing="sm">
                                             {/* Image upload input */}
                                             <label
@@ -218,9 +252,8 @@ const AddComplaintsPage: React.FC = () => {
                                                     borderRadius: '5px',
                                                     cursor: 'pointer',
                                                     display: 'block',
-                                                    marginTop: '20px',
-                                                    marginLeft: '100px',
-                                                    width: '40%',
+                                                    marginTop: '45px',
+                                                    width: '100%',
                                                     textAlign: 'center',
                                                 }}
                                             >

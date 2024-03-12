@@ -78,6 +78,8 @@ import EditsGrade from './pages/MyCommunity/EditsGrade';
 import Building from './pages/MyCommunity/Building';
 import AddBuilding from './pages/MyCommunity/AddBuildings';
 import EditsBuilding from './pages/MyCommunity/EditsBuilding';
+import ProfileTabs from './pages/Profile/ProfileTabs';
+import FamilyDetails from './pages/Profile/FamilyDetails';
 
 
 interface ProfileData {
@@ -212,6 +214,16 @@ const router = createBrowserRouter([
             {
                 path: 'add-owner-profile',
                 element: <AddOwnerProfile onAddOwner={handleAddOwner} />, // Assuming handleAddOwner is a function defined elsewhere
+            },
+
+            {
+                path:'profile-tabs',
+                element:<ProfileTabs/>
+
+            },
+            {
+                path:'add-family-profile',
+                element:<FamilyDetails/>
             },
 
             {

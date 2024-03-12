@@ -74,7 +74,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ profileData }) => {
 
             <PaperBox>
                 <div className="d-flex justify-content-end align-items-end mb-4">
-                    <Link to="/dashboard/add-owner-profile">
+                    <Link to="/dashboard/profile-tabs">
                         <button className="btn btn-primary">Add Profile</button>
                     </Link>
                 </div>

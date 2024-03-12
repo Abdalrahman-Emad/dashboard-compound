@@ -5,6 +5,7 @@ import VisitorForm from './VisitorForm';
 import PermissionView from './PermissionView';
 import PaperBox from '../../components/PaperBox';
 import HostingForm from './HostingForm';
+import OtherForm from './OtherForm';
 
 interface WorkerData {
     firstName: string;
@@ -45,8 +46,19 @@ interface VisitorData {
     [key: string]: string;
     visitorStatus: string;
 }
+interface OtherData {
+    name: string;
+    idCard: string;
+    phone: string;
+    carNumber: string;
+    reason: string;
+    [key: string]: string;
+    OtherStatus: string;
+    idCardPhoto:string;
+}
 
 interface PermissionForm {
+    otherData: OtherData[]; //Add otherData array
     owner: string | number | readonly string[] | undefined;
     laborName: string;
     projectName: string;
@@ -62,9 +74,8 @@ interface PermissionForm {
     status: string;
     unitStatus: string;
     creator: string;
-    notes:string;
+    notes: string;
 }
-
 
 const Permission: React.FC = () => {
     const [permitType, setPermitType] = useState<string>('');
@@ -76,7 +87,7 @@ const Permission: React.FC = () => {
         id: '',
         date: '',
         time: '',
-        notes:'',
+        notes: '',
         workerData: [
             {
                 firstName: '',
@@ -93,6 +104,8 @@ const Permission: React.FC = () => {
             },
         ],
         visitorData: [{ name: '', idCard: '', phone: '', carNumber: '', reason: '', visitorStatus: '' }],
+        otherData: [{ name: '', idCard: '', phone: '', carNumber: '', reason: '', OtherStatus: '',idCardPhoto:'', }],
+
         hostingData: [
             {
                 Name: '',
@@ -132,6 +145,24 @@ const Permission: React.FC = () => {
             [name]: value,
         }));
     };
+    ////////////
+    const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            status: value,
+        }));
+    };
+
+    const handleUnitStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            unitStatus: value,
+        }));
+    };
+
+    //////////////////
 
     const handleAddWorker = () => {
         setFormData((prevFormData) => ({
@@ -206,6 +237,40 @@ const Permission: React.FC = () => {
             ...prevFormData,
             hostingData: prevFormData.hostingData.filter((_, i) => i !== index),
         }));
+    };
+
+    const handleAddOther = () => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            otherData: [
+                ...prevFormData.otherData,
+                { name: '', idCard: '', phone: '', carNumber: '', reason: '', OtherStatus: '',idCardPhoto:'', },
+            ],
+        }));
+    };
+
+    const handleRemoveOther = (index: number) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            otherData: prevFormData.otherData.filter((_, i) => i !== index),
+        }));
+    };
+
+    const handleOtherChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+        index: number,
+        field: string,
+    ) => {
+        const newOtherData = [...formData.otherData];
+        newOtherData[index][field] = e.target.value;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            otherData: newOtherData,
+        }));
+    };
+
+    const handleOtherFileChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        // Handle file change for Other permit
     };
 
     const handleHostingChange = (
@@ -294,9 +359,7 @@ const Permission: React.FC = () => {
                                 <div className="card-body">
                                     <form onSubmit={handleSubmit}>
                                         <div className="mb-4">
-                                            <h5  className="form-label">
-                                                Select Permit Type:
-                                            </h5>
+                                            <h5 className="form-label">Select Permit Type:</h5>
                                             <select
                                                 id="permitType"
                                                 className="form-select"
@@ -318,6 +381,9 @@ const Permission: React.FC = () => {
                                                 <option style={{ marginBottom: '0.5rem' }} value="hosting">
                                                     Hosting
                                                 </option>{' '}
+                                                <option style={{ marginBottom: '0.5rem' }} value="other">
+                                                    Other
+                                                </option>
                                                 {/* Add hosting permit option */}
                                             </select>
                                         </div>
@@ -362,7 +428,7 @@ const Permission: React.FC = () => {
                                                         <input
                                                             type="text"
                                                             id="owner"
-                                                            placeholder='Enter Owner'
+                                                            placeholder="Enter Owner"
                                                             className="form-control"
                                                             value={formData.owner}
                                                             onChange={handleChange}
@@ -375,7 +441,7 @@ const Permission: React.FC = () => {
                                                         <input
                                                             type="text"
                                                             id="unitid"
-                                                            placeholder='Enter Unit ID'
+                                                            placeholder="Enter Unit ID"
                                                             className="form-control"
                                                             value={formData.unitId}
                                                             onChange={handleChange}
@@ -390,7 +456,7 @@ const Permission: React.FC = () => {
                                                         <input
                                                             type="text"
                                                             id="id"
-                                                            placeholder='Enter Permission ID'
+                                                            placeholder="Enter Permission ID"
                                                             className="form-control"
                                                             value={formData.id}
                                                             onChange={handleChange}
@@ -402,9 +468,10 @@ const Permission: React.FC = () => {
                                                         </label>
                                                         <select
                                                             id="status"
-                                                            placeholder='Enter Status Permission'
+                                                            placeholder="Enter Status Permission"
                                                             className="form-select"
                                                             value={formData.status}
+                                                            onChange={handleStatusChange}
                                                         >
                                                             <option value="">Select status</option>
                                                             <option value="active">Active</option>
@@ -422,7 +489,7 @@ const Permission: React.FC = () => {
                                                         <input
                                                             type="text"
                                                             id="owner"
-                                                            placeholder='Enter Creator'
+                                                            placeholder="Enter Creator"
                                                             className="form-control"
                                                             value={formData.creator}
                                                             onChange={handleChange}
@@ -436,13 +503,14 @@ const Permission: React.FC = () => {
                                                             id="unitStatus"
                                                             className="form-select"
                                                             value={formData.unitStatus}
+                                                            onChange={handleUnitStatusChange}
                                                         >
                                                             <option value="">Select Unit status</option>
                                                             <option value="active">Active</option>
                                                             <option value="inactive">Inactive</option>
                                                             <option value="pending">Pending</option>
                                                             {/* Add more options as needed */}
-                                                        </select>
+                                                        </select>{' '}
                                                     </div>
                                                 </div>
                                                 <div className="row mb-3">
@@ -479,13 +547,12 @@ const Permission: React.FC = () => {
                                                         <input
                                                             type="text"
                                                             id="notes"
-                                                            placeholder='Enter Notes'
+                                                            placeholder="Enter Notes"
                                                             className="form-control"
                                                             value={formData.notes}
                                                             onChange={handleChange}
                                                         />
-                                                        </div>
-
+                                                    </div>
                                                 </div>
                                                 {permitType === 'visitor' &&
                                                     formData.visitorData.map((visitor, index) => (
@@ -520,6 +587,18 @@ const Permission: React.FC = () => {
                                                             onHostingFileChange={handleHostingFileChange}
                                                         />
                                                     ))}
+                                                {permitType === 'other' &&
+                                                    formData.otherData.map((other, index) => (
+                                                        <OtherForm
+                                                            key={index}
+                                                            Other={other}
+                                                            OtherIndex={index}
+                                                            onRemoveOther={handleRemoveOther}
+                                                            onOtherChange={handleOtherChange}
+                                                            onOtherFileChange={handleOtherFileChange}
+                                                        />
+                                                    ))}
+
                                                 <div className="text-center">
                                                     {permitType === 'labor' && (
                                                         <button
@@ -548,6 +627,16 @@ const Permission: React.FC = () => {
                                                             Add Hosting
                                                         </button>
                                                     )}
+                                                    {permitType === 'other' && (
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-primary mx-2"
+                                                            onClick={handleAddOther}
+                                                        >
+                                                            Add Other
+                                                        </button>
+                                                    )}
+
                                                     <Link to="/dashboard/requests-permission/view">
                                                         <button type="submit" className="btn btn-success">
                                                             Submit

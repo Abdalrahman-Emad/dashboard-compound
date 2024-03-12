@@ -89,6 +89,11 @@ const PermissionView: React.FC = () => {
         <div className="container">
             <h2 className="m-3">Permission View</h2>
             <PaperBox>
+                    <div className="d-flex justify-content-end align-items-end mb-4">
+                        <Link to="/dashboard/requests-permission/permission" className="btn btn-primary">
+                            Add Permission
+                        </Link>
+                    </div>
                 <div className="row mb-3 my-4">
                     <div className="col">
                         <input
@@ -144,13 +149,6 @@ const PermissionView: React.FC = () => {
                         <button className="btn btn-secondary" onClick={clearFilters}>
                             Clear
                         </button>
-                    </div>
-                </div>
-                <div className="row mb-3">
-                    <div className="col w-25 btn-sm">
-                        <Link to="/dashboard/requests-permission/permission" className="btn btn-primary">
-                            Add Permission
-                        </Link>
                     </div>
                 </div>
                 <div className="table-responsive">
