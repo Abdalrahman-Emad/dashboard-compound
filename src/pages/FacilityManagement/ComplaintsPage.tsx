@@ -38,19 +38,19 @@ const ComplaintsPage = () => {
 
     return (
         <div>
-            <Group position="apart">
-                <Title order={2} my={24}>
+                <Title order={2} my={0}>
                     Complaints
                 </Title>
-            </Group>
-            <PaperBox>
-                <div className="d-flex justify-content-end align-items-end mb-3">
+            <div className="d-flex justify-content-end align-items-end mb-3">
                     <Group>
                         <Button onClick={() => navigate('/dashboard/facility-management/complaints/add-complaints')}>
                             Add Complaints
                         </Button>
+                        <Button>Export Complaints</Button>
                     </Group>
                 </div>
+
+            <PaperBox>
 
                 <Grid>
                     <Grid.Col xs={1.7}>
