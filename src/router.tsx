@@ -80,6 +80,7 @@ import AddBuilding from './pages/MyCommunity/AddBuildings';
 import EditsBuilding from './pages/MyCommunity/EditsBuilding';
 import ProfileTabs from './pages/Profile/ProfileTabs';
 import FamilyDetails from './pages/Profile/FamilyDetails';
+import { EditsNews } from './pages/SocialCommunication/EditsNews';
 
 
 interface ProfileData {
@@ -420,6 +421,17 @@ const router = createBrowserRouter([
                                     },
                                 ],
                             },
+
+                            {
+                                path:'editNews',
+                                children:[
+                                    {
+                                        path:'',
+                                        element:<EditsNews/>
+                                    }
+                                ]
+
+                            }
                         ],
                     },
                     {

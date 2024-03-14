@@ -76,12 +76,12 @@ const News: React.FC = () => {
     });
 
     return (
-        <div>
+        <div className='container'>
+            <h2 className="mb-3 my-3">News</h2>
             <PaperBox>
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h2 className="m-0">News</h2>
+                <div className="d-flex justify-content-end align-items-end mb-3">
                     <Link to="/dashboard/social-communication/news/addnews">
-                        <button className="btn btn-success">Add News</button>
+                        <button className="btn btn-primary">Add News</button>
                     </Link>
                 </div>
 
@@ -143,28 +143,28 @@ const News: React.FC = () => {
                     <table className="table table-bordered table-striped">
                         <thead className="bg-primary text-white">
                             <tr>
-                                <th className="bg-primary text-white">ID</th>
-                                <th className="bg-primary text-white">Title</th>
-                                <th className="bg-primary text-white">Type</th>
-                                <th className="bg-primary text-white">Status</th>
-                                <th className="bg-primary text-white">Project Name</th>
-                                <th className="bg-primary text-white">From date</th>
-                                <th className="bg-primary text-white">To date</th>
-                                <th className="bg-primary text-white">Actions</th>
+                                <th className="bg-primary text-white p-4 text-center">ID</th>
+                                <th className="bg-primary text-white p-4 text-center">Title</th>
+                                <th className="bg-primary text-white p-4 text-center">Type</th>
+                                <th className="bg-primary text-white p-4 text-center">Status</th>
+                                <th className="bg-primary text-white p-4 text-center">Project Name</th>
+                                <th className="bg-primary text-white p-4 text-center">From date</th>
+                                <th className="bg-primary text-white p-4 text-center">To date</th>
+                                <th className="bg-primary text-white p-4 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredNews.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item.id}</td>
-                                    <td>{item.description}</td>
-                                    <td>{item.type}</td>
-                                    <td>{item.status}</td>
-                                    <td>{item.projectName}</td>
-                                    <td>{item.fromDate}</td>
-                                    <td>{item.toDate}</td>
-                                    <td>
-                                        <Link to="/dashboard/social-communication/news/addnews">
+                                    <td className="p-4">{item.id}</td>
+                                    <td className="p-4">{item.description}</td>
+                                    <td className="p-4">{item.type}</td>
+                                    <td className="p-4">{item.status}</td>
+                                    <td className="p-4">{item.projectName}</td>
+                                    <td className="p-4">{item.fromDate}</td>
+                                    <td className="p-4">{item.toDate}</td>
+                                    <td className="p-4">
+                                        <Link to="/dashboard/social-communication/news/editnews">
                                             <button className="btn btn-sm btn-primary">
                                                 <FaEdit />
                                             </button>

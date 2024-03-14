@@ -4,6 +4,8 @@ import PaperBox from '../../components/PaperBox';
 import { useNavigate } from 'react-router-dom';
 import { useStyles } from '../../styles/table';
 import { IconPencilMinus, IconTrash } from '@tabler/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const ComplaintsPage = () => {
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ const ComplaintsPage = () => {
             unitNo: 'Unit 101',
             status: 'Open',
             unitArea: '100 sqft',
-            owner: 'Owner 1'
+            owner: 'Owner 1',
         },
         {
             id: 2,
@@ -25,10 +27,14 @@ const ComplaintsPage = () => {
             unitNo: 'Unit 102',
             status: 'Closed',
             unitArea: '150 sqft',
-            owner: 'Owner 2'
+            owner: 'Owner 2',
         },
         // Add more complaints as needed
     ];
+
+    function handleDelete(id: number): void {
+        throw new Error('Function not implemented.');
+    }
 
     return (
         <div>
@@ -36,14 +42,16 @@ const ComplaintsPage = () => {
                 <Title order={2} my={24}>
                     Complaints
                 </Title>
-                <Group>
-                    <Button onClick={() => navigate('/dashboard/facility-management/complaints/add-complaints')}>Add Complaints</Button>
-                    <Button>Upload Complaints</Button>
-                    <Button>Export Complaints</Button>
-                    <Button>Export Warranty Complaints</Button>
-                </Group>
             </Group>
             <PaperBox>
+                <div className="d-flex justify-content-end align-items-end mb-3">
+                    <Group>
+                        <Button onClick={() => navigate('/dashboard/facility-management/complaints/add-complaints')}>
+                            Add Complaints
+                        </Button>
+                    </Group>
+                </div>
+
                 <Grid>
                     <Grid.Col xs={1.7}>
                         <TextInput placeholder="ID" />
@@ -64,47 +72,77 @@ const ComplaintsPage = () => {
                         <TextInput placeholder="Owner" />
                     </Grid.Col>
                     <Grid.Col xs={1}>
-                        <Button color="green" fullWidth>
+                        <Button style={{ backgroundColor: '#5C636A' }} fullWidth>
                             Clear
                         </Button>
                     </Grid.Col>
                 </Grid>
                 <div style={{ overflowX: 'auto' }}>
-                    <Table verticalSpacing="md" className={classes.tableBody}>
+                    <Table
+                        verticalSpacing="md"
+                        className={`${classes.tableBody} table-hover`}
+                        style={{ borderCollapse: 'collapse', border: '1px solid #ccc' }} // Adjust border color to light gray
+                    >
                         <thead className={classes.tableHeader}>
                             <tr>
-                                <th>ID</th>
-                                <th>Type</th>
-                                <th>Unit No</th>
-                                <th>Status</th>
-                                <th>Unit Area</th>
-                                <th>Owner</th>
-                                <th>Edit</th>
-                                <th>Warranty</th>
-                                <th>Delete</th>
+                                <th className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                    ID
+                                </th>
+                                <th className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                    Type
+                                </th>
+                                <th className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                    Unit No
+                                </th>
+                                <th className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                    Status
+                                </th>
+                                <th className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                    Unit Area
+                                </th>
+                                <th className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                    Owner
+                                </th>
+                                <th className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                    Actions
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             {complaints.map((complaint) => (
                                 <tr key={complaint.id} className={classes.tableRow}>
-                                    <td>{complaint.id}</td>
-                                    <td>{complaint.type}</td>
-                                    <td>{complaint.unitNo}</td>
-                                    <td>{complaint.status}</td>
-                                    <td>{complaint.unitArea}</td>
-                                    <td>{complaint.owner}</td>
-                                    <td>
-                                        <ActionIcon color="orange" onClick={() => navigate("complaints-detailes")}>
-                                            <IconPencilMinus />
-                                        </ActionIcon>
+                                    <td className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                        {complaint.id}
                                     </td>
-                                    <td>
-                                        <Checkbox />
+                                    <td className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                        {complaint.type}
                                     </td>
-                                    <td>
-                                        <ActionIcon color="red">
-                                            <IconTrash />
-                                        </ActionIcon>
+                                    <td className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                        {complaint.unitNo}
+                                    </td>
+                                    <td className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                        {complaint.status}
+                                    </td>
+                                    <td className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                        {complaint.unitArea}
+                                    </td>
+                                    <td className="text-center" style={{ border: '1px solid #ccc', fontSize: '16px' }}>
+                                        {complaint.owner}
+                                    </td>
+                                    <td style={{ border: '1px solid #ccc' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                            <FontAwesomeIcon
+                                                icon={faEdit}
+                                                className="btn btn-sm btn-primary mx-1"
+                                                onClick={() => navigate('complaints-detailes')}
+                                            />{' '}
+                                            <FontAwesomeIcon
+                                                icon={faTrash}
+                                                className="btn btn-sm btn-danger mx-1"
+                                                onClick={() => handleDelete(complaint.id)}
+                                            />
+                                            {''}
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

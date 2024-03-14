@@ -189,7 +189,7 @@ const AddComplaintsPage: React.FC = () => {
             </Grid>
 
             <div style={{ border: '10px', borderRadius: '50px', marginTop: '50px' }}>
-                <h4 className="m-2">Reply to Owner</h4>
+                <h4 className="m-3">Reply Complain</h4>
                 <Grid>
                     <Grid.Col span={12}>
                         <PaperBox>

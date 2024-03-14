@@ -16,7 +16,6 @@ const UnitsPage = () => {
                     <Button onClick={()=>{navigate('/dashboard/community/units/add-units')}}>Add Units</Button>
                     <Button>Upload Units</Button>
                     <Button>Export Units</Button>
-                    <Button>Export Warranty Units</Button>
                 </Group>
             </Group>
             <PaperBox>
@@ -40,7 +39,7 @@ const UnitsPage = () => {
                         <TextInput placeholder="Owner" />
                     </Grid.Col>
                     <Grid.Col xs={1}>
-                        <Button color="green" fullWidth>
+                        <Button style={{backgroundColor:'#5c636a'}} fullWidth>
                             Clear
                         </Button>
                     </Grid.Col>

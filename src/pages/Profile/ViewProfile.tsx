@@ -69,8 +69,8 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ profileData }) => {
     };
 
     return (
-        <div className="container mt-4">
-            <PageTitle title="View Profile" />
+        <div className="container">
+            <h2 className='mb-3 my-3'>View Profile</h2>
 
             <PaperBox>
                 <div className="d-flex justify-content-end align-items-end mb-4">
@@ -124,32 +124,38 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ profileData }) => {
                             Apply Filters
                         </button>
                     </div> */}
+                    <div className="col">
+                        <button className="btn btn-secondary">
+                            Clear
+                        </button>
+                    </div>
+
                 </div>
                 <div className="table-responsive">
                     <table className="table table-bordered table-hover">
                         <thead className="thead-dark">
                             <tr>
-                                <th className="align-middle bg-primary text-white">Owner Name</th>
-                                <th className="align-middle bg-primary text-white">ID</th>
-                                <th className="align-middle bg-primary text-white">Nationality</th>
-                                <th className="align-middle bg-primary text-white">Mobile</th>
-                                <th className="align-middle bg-primary text-white">Address</th>
-                                <th className="align-middle bg-primary text-white">Email</th>
-                                <th className="align-middle bg-primary text-white">Job</th>
-                                <th className="align-middle bg-primary text-white">Actions</th>
+                                <th className="align-middle bg-primary text-white p-4">Owner Name</th>
+                                <th className="align-middle bg-primary text-white p-4">ID</th>
+                                <th className="align-middle bg-primary text-white p-4">Nationality</th>
+                                <th className="align-middle bg-primary text-white p-4">Mobile</th>
+                                <th className="align-middle bg-primary text-white p-4">Address</th>
+                                <th className="align-middle bg-primary text-white p-4">Email</th>
+                                <th className="align-middle bg-primary text-white p-4">Job</th>
+                                <th className="align-middle bg-primary text-white p-4">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredData.map((profile, index) => (
                                 <tr key={index}>
-                                    <td>{profile.ownerName}</td>
-                                    <td>{profile.id}</td>
-                                    <td>{profile.nationality}</td>
-                                    <td>{profile.mobile}</td>
-                                    <td>{profile.address}</td>
-                                    <td>{profile.email}</td>
-                                    <td>{profile.job}</td>
-                                    <td>
+                                    <td className="p-4">{profile.ownerName}</td>
+                                    <td className="p-4">{profile.id}</td>
+                                    <td className="p-4">{profile.nationality}</td>
+                                    <td className="p-4">{profile.mobile}</td>
+                                    <td className="p-4">{profile.address}</td>
+                                    <td className="p-4">{profile.email}</td>
+                                    <td className="p-4">{profile.job}</td>
+                                    <td className="p-4">
                                         <div className="btn-group" role="group">
                                             <Link to="/dashboard/update-profile">
                                                 {' '}

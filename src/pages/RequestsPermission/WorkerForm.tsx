@@ -15,6 +15,8 @@ interface WorkerData {
     IdWorker: string;
     [key: string]: string;
     workerStatus: string;
+    permissionNumber: string;
+    qrCodeGenerated: string;
 }
 
 interface WorkerFormProps {
@@ -59,7 +61,7 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                 <div className="col-md-6">
                     <div className="mb-3">
                         <label htmlFor={`lastName${workerIndex}`} className="form-label">
-                            Last Name:
+                            Mobile Number:
                         </label>
                         <input
                             type="text"
@@ -110,6 +112,41 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
             <div className="row">
                 <div className="col-md-6">
                     <div className="mb-3">
+                        <label htmlFor={`permissionNumber${workerIndex}`} className="form-label">
+                            Permission Number:
+                        </label>
+                        <input
+                            type="text"
+                            id={`permissionNumber${workerIndex}`}
+                            name={`permissionNumber${workerIndex}`}
+                            className="form-control"
+                            value={worker.permissionNumber}
+                            onChange={(e) => onWorkerChange(e.target.value, workerIndex, 'permissionNumber')}
+                            aria-label={`Permission Number for Worker ${workerIndex + 1}`}
+                        />
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="mb-3">
+                        <label htmlFor={`qrCodeGenerated${workerIndex}`} className="form-label">
+                            QR Code Generated:
+                        </label>
+                        <input
+                            type="text"
+                            id={`qrCodeGenerated${workerIndex}`}
+                            name={`qrCodeGenerated${workerIndex}`}
+                            className="form-control"
+                            value={worker.qrCodeGenerated}
+                            onChange={(e) => onWorkerChange(e.target.value, workerIndex, 'qrCodeGenerated')}
+                            aria-label={`QR Code Generated for Worker ${workerIndex + 1}`}
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-md-6">
+                    <div className="mb-3">
                         <label htmlFor={`workerStatus${workerIndex}`} className="form-label">
                             Worker Status:
                         </label>
@@ -153,7 +190,7 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                     </div>
                 </div>
             </div> */}
-            <div className="row">
+            <div className="row my-3">
                 <div className="col-md-6 mb-3">
                     <label htmlFor={`idCardPhoto${workerIndex}`} className="form-label">
                         Upload ID Card Photo :

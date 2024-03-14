@@ -3,8 +3,13 @@ import { Container, Table, Button, TextInput } from '@mantine/core';
 import PaperBox from '../../components/PaperBox';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const BuildingView: React.FC = () => {
+    const navigate = useNavigate();
+
     // Sample data for demonstration
     const [filter, setFilter] = useState({
         projectName: '',
@@ -97,70 +102,133 @@ const BuildingView: React.FC = () => {
                     </div>
                     <div className="col text-center">
                         <Link to={'/dashboard/community/building/add-building'}>
-                            <Button variant="filled" color="teal">
-                                Add Building
-                            </Button>
+                            <Button className="btn-primary">Add Building</Button>
                         </Link>
                     </div>
                 </div>
-                <div className="table-responsive">
-    <Table style={{ border: '1px solid #dee2e6', borderRadius: '0.25rem' }}>
-        <thead className="thead-dark">
-            <tr>
-                <th className="align-middle bg-primary text-white">Project Name</th>
-                <th className="align-middle bg-primary text-white">Grade Name</th>
-                <th className="align-middle bg-primary text-white">Building Name</th>
-                <th className="align-middle bg-primary text-white">Building Type</th>
-                <th className="align-middle bg-primary text-white">Building Status</th>
-                <th className="align-middle bg-primary text-white">No of Floors</th>
-                <th className="align-middle bg-primary text-white">Total No of Units</th>
-                <th className="align-middle bg-primary text-white">No of Units Residents</th>
-                <th className="align-middle bg-primary text-white">No of Units Commercial</th>
-                <th className="align-middle bg-primary text-white">No of Units Parking</th>
-                <th className="align-middle bg-primary text-white">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {filteredData.map((building, index) => (
-                <tr key={index}>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>{building.projectName}</td>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>{building.gradeName}</td>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>{building.buildingName}</td>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>{building.buildingType}</td>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>{building.buildingStatus}</td>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>{building.numberOfFloors}</td>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>{building.totalNumberOfUnits}</td>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>{building.numberOfUnitsResidents}</td>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>{building.numberOfUnitsCommercial}</td>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>{building.numberOfUnitsParking}</td>
-                    <td style={{ border: '1px solid #dee2e6', padding: '0.75rem' }}>
-                        <div className="btn-group" role="group">
-                            <Link to={'/dashboard/community/building/edit-building'}>
-                                <Button
-                                    className="btn btn-sm btn-primary mr-1 mx-1"
-                                    variant="outline"
-                                    color="blue"
-                                    size="sm"
+                <div className="table-responsive w-100">
+                    <Table style={{ border: '1px solid #dee2e6', borderRadius: '0.25rem' }}>
+                        <thead className="thead-dark">
+                            <tr>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
                                 >
-                                    <FaEdit />
-                                </Button>
-                            </Link>
-                            <Button
-                                className="btn btn-sm btn-danger"
-                                variant="outline"
-                                color="red"
-                                size="sm"
-                            >
-                                <FaTrash />
-                            </Button>
-                        </div>
-                    </td>
-                </tr>
-            ))}
-        </tbody>
-    </Table>
-</div>
+                                    Project Name
+                                </th>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
+                                >
+                                    Grade Name
+                                </th>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
+                                >
+                                    Building Name
+                                </th>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
+                                >
+                                    Building Type
+                                </th>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
+                                >
+                                    Building Status
+                                </th>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
+                                >
+                                    No of Floors
+                                </th>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
+                                >
+                                    Total No of Units
+                                </th>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
+                                >
+                                    No of Units Residents
+                                </th>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
+                                >
+                                    No of Units Commercial
+                                </th>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
+                                >
+                                    No of Units Parking
+                                </th>
+                                <th
+                                    style={{ border: '1px solid #dee2e6' }}
+                                    className="align-middle bg-primary text-white p-3"
+                                >
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredData.map((building, index) => (
+                                <tr key={index}>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6'}}>
+                                        {building.projectName}
+                                    </td>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6'}}>
+                                        {building.gradeName}
+                                    </td>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6'}}>
+                                        {building.buildingName}
+                                    </td>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6' }}>
+                                        {building.buildingType}
+                                    </td>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6' }}>
+                                        {building.buildingStatus}
+                                    </td>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6' }}>
+                                        {building.numberOfFloors}
+                                    </td>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6' }}>
+                                        {building.totalNumberOfUnits}
+                                    </td>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6' }}>
+                                        {building.numberOfUnitsResidents}
+                                    </td>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6'}}>
+                                        {building.numberOfUnitsCommercial}
+                                    </td>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6'}}>
+                                        {building.numberOfUnitsParking}
+                                    </td>
+                                    <td className='text-center p-3'  style={{ border: '1px solid #dee2e6'}}>
 
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                            <Link to={'/dashboard/community/building/edit-building'}>
+                                                <FontAwesomeIcon
+                                                    icon={faEdit}
+                                                    className="btn btn-sm btn-primary mx-1 mb-1"
+                                                />{' '}
+                                            </Link>
+                                            <FontAwesomeIcon icon={faTrash} className="btn btn-sm btn-danger mx-1" />
+                                            {''}
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </div>
             </PaperBox>
         </Container>
     );

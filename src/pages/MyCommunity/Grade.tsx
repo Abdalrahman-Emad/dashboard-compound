@@ -3,6 +3,8 @@ import { Container, TextInput, Button, Table } from '@mantine/core';
 import PaperBox from '../../components/PaperBox';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const GradeView: React.FC = () => {
     // Sample data for demonstration
@@ -58,9 +60,7 @@ const GradeView: React.FC = () => {
                     </div>
                     <div className="col text-right">
                         <Link to="/dashboard/community/grade/add-grade">
-                            <Button variant="filled" color="teal">
-                                Add Grade
-                            </Button>
+                            <Button className="btn-primary"> Add Grade</Button>
                         </Link>
                     </div>
                 </div>
@@ -68,38 +68,28 @@ const GradeView: React.FC = () => {
                     <Table striped>
                         <thead className="thead-dark">
                             <tr>
-                                <th className="align-middle bg-primary text-white">Grade Name</th>
-                                <th className="align-middle bg-primary text-white">Project Name</th>
-                                <th className="align-middle bg-primary text-white">Number of Buildings</th>
-                                <th className="align-middle bg-primary text-white">Actions</th>
+                                <th style={{ border: '1px solid #dee2e6'}} className="align-middle bg-primary text-center text-white p-3">Grade Name</th>
+                                <th style={{ border: '1px solid #dee2e6'}} className="align-middle bg-primary text-center text-white p-3">Project Name</th>
+                                <th style={{ border: '1px solid #dee2e6'}} className="align-middle bg-primary text-center text-white p-3">Number of Buildings</th>
+                                <th style={{ border: '1px solid #dee2e6'}} className="align-middle bg-primary text-center text-white p-3">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {sampleGradeData.filter(filterGradeData).map((grade, index) => (
                                 <tr key={index}>
-                                    <td>{grade.gradeName}</td>
-                                    <td>{grade.projectName}</td>
-                                    <td>{grade.numberOfBuildings}</td>
-                                    <td>
-                                        <div className="btn-group" role="group">
+                                    <td style={{ border: '1px solid #dee2e6'}} className='text-center p-3'>{grade.gradeName}</td>
+                                    <td style={{ border: '1px solid #dee2e6'}} className='text-center p-3'>{grade.projectName}</td>
+                                    <td style={{ border: '1px solid #dee2e6'}} className='text-center p-3'>{grade.numberOfBuildings}</td>
+                                    <td style={{ border: '1px solid #dee2e6'}} className='text-center p-3'>
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
                                             <Link to={'/dashboard/community/grade/edit-grade'}>
-                                                <Button
-                                                    className="btn btn-sm btn-primary mr-1 mx-1"
-                                                    variant="outline"
-                                                    color="blue"
-                                                    size="md"
-                                                >
-                                                    <FaEdit />
-                                                </Button>
+                                                <FontAwesomeIcon
+                                                    icon={faEdit}
+                                                    className="btn btn-sm btn-primary mx-1 mb-1"
+                                                />{' '}
                                             </Link>
-                                            <Button
-                                                className="btn btn-sm btn-danger"
-                                                variant="outline"
-                                                color="red"
-                                                size="md"
-                                            >
-                                                <FaTrash />
-                                            </Button>
+                                            <FontAwesomeIcon icon={faTrash} className="btn btn-sm btn-danger mx-1" />
+                                            {''}
                                         </div>
                                     </td>
                                 </tr>

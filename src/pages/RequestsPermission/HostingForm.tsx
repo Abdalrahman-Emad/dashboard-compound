@@ -23,11 +23,7 @@ interface HostingFormProps {
     hosting: HostingData;
     hostingIndex: number;
     onRemoveHosting: (index: number) => void;
-    onHostingChange: (
-        value: string,
-        index: number,
-        field: string,
-    ) => void;
+    onHostingChange: (value: string, index: number, field: string) => void;
     onHostingFileChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void;
 }
 
@@ -79,6 +75,20 @@ const HostingForm: React.FC<HostingFormProps> = ({
             <div className="row">
                 <div className="col-md-6 my-3">
                     <div className="form-group">
+                        <label htmlFor={`hostingId${hostingIndex}`}>Car ID:</label>
+                        <input
+                            type="text"
+                            id={`hostingId${hostingIndex}`}
+                            name={`hostingId${hostingIndex}`}
+                            className="form-control"
+                            value={hosting.carIdId}
+                            onChange={(e) => onHostingChange(e.target.value, hostingIndex, 'caridId')}
+                            aria-label={`Car ID ${hostingIndex + 1}`}
+                        />
+                    </div>
+                </div>
+                <div className="col-md-6 my-3">
+                    <div className="form-group">
                         <label htmlFor={`hostingRelation${hostingIndex}`}>Hosting Relation:</label>
                         <input
                             type="text"
@@ -91,6 +101,9 @@ const HostingForm: React.FC<HostingFormProps> = ({
                         />
                     </div>
                 </div>
+            </div>
+
+            <div className="row">
                 <div className="col-md-6 my-3">
                     <div className="form-group">
                         <label htmlFor={`hostingStatus${hostingIndex}`}>Hosting Status:</label>

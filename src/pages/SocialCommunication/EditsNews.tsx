@@ -16,7 +16,7 @@ interface NewsItem {
     news: string;
 }
 
-export const AddNews: React.FC = () => {
+export const EditsNews: React.FC = () => {
     const [id, setId] = useState<string>('');
     const [title, setTitle] = useState<string>('');
     const [type, setType] = useState<string>('');
@@ -81,9 +81,10 @@ export const AddNews: React.FC = () => {
         throw new Error('Function not implemented.');
     }
 
+ {
     return (
         <div className="container">
-            <PageTitle title="Add News" />
+            <PageTitle title="Edits News" />
             <PaperBox>
                 <div className="row">
                     <div className="col-md-6 mb-3">
@@ -179,4 +180,4 @@ export const AddNews: React.FC = () => {
             </PaperBox>
         </div>
     );
-};
+}}

@@ -87,13 +87,13 @@ const PermissionView: React.FC = () => {
 
     return (
         <div className="container">
-            <h2 className="m-3">Permission View</h2>
+            <h2 className="mb-3 my-3">Permission View</h2>
             <PaperBox>
-                    <div className="d-flex justify-content-end align-items-end mb-4">
-                        <Link to="/dashboard/requests-permission/permission" className="btn btn-primary">
-                            Add Permission
-                        </Link>
-                    </div>
+                <div className="d-flex justify-content-end align-items-end">
+                    <Link to="/dashboard/requests-permission/permission" className="btn btn-primary">
+                        Add Permission
+                    </Link>
+                </div>
                 <div className="row mb-3 my-4">
                     <div className="col">
                         <input
@@ -151,31 +151,31 @@ const PermissionView: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                <div className="table-responsive">
+                <div className="table-responsive" style={{ width: '100%' }}>
                     <table className="table table-bordered table-hover">
                         <thead className="thead-dark">
                             <tr>
-                                <th className="align-middle bg-primary text-white">Unit Name</th>
-                                <th className="align-middle bg-primary text-white">Project Name</th>
-                                <th className="align-middle bg-primary text-white">Type</th>
-                                <th className="align-middle bg-primary text-white">Date</th>
-                                <th className="align-middle bg-primary text-white">Time</th>
-                                <th className="align-middle bg-primary text-white">Status</th>
-                                <th className="align-middle bg-primary text-white">Names</th>
-                                <th className="align-middle bg-primary text-white">Actions</th>
+                                <th className="align-middle text-center bg-primary text-white p-4 ">Unit Name</th>
+                                <th className="align-middle text-center bg-primary text-white p-4 ">Project Name</th>
+                                <th className="align-middle text-center bg-primary text-white p-4 ">Type</th>
+                                <th className="align-middle text-center bg-primary text-white p-4 ">Date</th>
+                                <th className="align-middle text-center bg-primary text-white p-4 ">Time</th>
+                                <th className="align-middle text-center bg-primary text-white p-4 ">Status</th>
+                                <th className="align-middle text-center bg-primary text-white p-4 ">Names</th>
+                                <th className="align-middle text-center bg-primary text-white p-4 ">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {samplePermissionData.filter(filterPermissions).map((permission, index) => (
                                 <tr key={index}>
-                                    <td>{permission.unitName}</td>
-                                    <td>{permission.projectName}</td>
-                                    <td>{permission.type}</td>
-                                    <td>{permission.date}</td>
-                                    <td>{permission.time}</td>
-                                    <td>{permission.status}</td>
-                                    <td>{permission.names.join(', ')}</td>
-                                    <td>
+                                    <td className='p-4'>{permission.unitName}</td>
+                                    <td className='p-4'>{permission.projectName}</td>
+                                    <td className='p-4'>{permission.type}</td>
+                                    <td className='p-4'>{permission.date}</td>
+                                    <td className='p-4'>{permission.time}</td>
+                                    <td className='p-4'>{permission.status}</td>
+                                    <td className='p-4'>{permission.names.join(', ')}</td>
+                                    <td className='p-4'>
                                         <div className="btn-group" role="group">
                                             {/* <Link to={`/dashboard/requests-permission/requests/${permission.id}`}> */}
                                             <Link to="/dashboard/requests-permission/update">
