@@ -20,6 +20,8 @@ interface WorkerData {
     IdWorker: string;
     [key: string]: string;
     workerStatus: string;
+    permissionNumber: string;
+    qrCodeGenerated: string;
 }
 
 interface HostingData {
@@ -101,6 +103,8 @@ const Permission: React.FC = () => {
                 fromDate: '',
                 toDate: '',
                 workerStatus: '',
+                permissionNumber:'', 
+                qrCodeGenerated:'',
             },
         ],
         visitorData: [{ name: '', idCard: '', phone: '', carNumber: '', reason: '', visitorStatus: '' }],
@@ -181,6 +185,9 @@ const Permission: React.FC = () => {
                     carId: '',
                     IdWorker: '',
                     workerStatus: '',
+                    permissionNumber:'', 
+                    qrCodeGenerated:'',
+    
                 },
             ],
         }));

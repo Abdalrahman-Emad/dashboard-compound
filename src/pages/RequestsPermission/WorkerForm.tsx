@@ -1,6 +1,7 @@
 import React from 'react';
 import { DatePicker } from '@mantine/dates';
 import { IconCalendar } from '@tabler/icons';
+import QRCode from 'react-qr-code';
 
 interface WorkerData {
     firstName: string;
@@ -128,25 +129,6 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                 </div>
                 <div className="col-md-6">
                     <div className="mb-3">
-                        <label htmlFor={`qrCodeGenerated${workerIndex}`} className="form-label">
-                            QR Code Generated:
-                        </label>
-                        <input
-                            type="text"
-                            id={`qrCodeGenerated${workerIndex}`}
-                            name={`qrCodeGenerated${workerIndex}`}
-                            className="form-control"
-                            value={worker.qrCodeGenerated}
-                            onChange={(e) => onWorkerChange(e.target.value, workerIndex, 'qrCodeGenerated')}
-                            aria-label={`QR Code Generated for Worker ${workerIndex + 1}`}
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <div className="row">
-                <div className="col-md-6">
-                    <div className="mb-3">
                         <label htmlFor={`workerStatus${workerIndex}`} className="form-label">
                             Worker Status:
                         </label>
@@ -165,6 +147,21 @@ const WorkerForm: React.FC<WorkerFormProps> = ({
                         </select>
                     </div>
                 </div>
+            </div>
+
+            <div className="row">
+            <div className="col-md-6 mb-4">
+                    <div style={{ height: 'auto', margin: '0 auto', maxWidth: 64, width: '100%' }}>
+                        <QRCode
+                            size={256}
+                            style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
+                            value={worker.permissionNumber} // Pass the permission number as the value
+                            viewBox={`0 0 256 256`}
+                        />
+                    </div>{' '}
+                </div>
+
+
             </div>
             {/* <div className="row">
                 <div className="col-md-6">
