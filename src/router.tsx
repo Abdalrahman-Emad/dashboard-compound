@@ -81,6 +81,9 @@ import EditsBuilding from './pages/MyCommunity/EditsBuilding';
 import ProfileTabs from './pages/Profile/ProfileTabs';
 import FamilyDetails from './pages/Profile/FamilyDetails';
 import { EditsNews } from './pages/SocialCommunication/EditsNews';
+import ProjectView from './pages/MyCommunity/ProjectView';
+import AddProject from './pages/MyCommunity/AddProject';
+import EditProject from './pages/MyCommunity/EditProject';
 
 
 interface ProfileData {
@@ -322,6 +325,26 @@ const router = createBrowserRouter([
                                 element: <UnitDetailesPage />,
                             },
                         ],
+                    },
+
+                    {
+                        path: 'project',
+                        children: [
+                            {
+                                path:'',
+                                element:  <ProjectView/>
+                            },
+                            {
+                                path:'add-project',
+                                element: <AddProject/>
+                            },
+                            {
+                                path:'edit-project',
+                                element: <EditProject/>
+                            }
+
+
+                        ]
                     },
                 ],
             },

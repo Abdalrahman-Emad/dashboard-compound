@@ -83,7 +83,15 @@ export const DashboardNavbar = () => {
                             to="community/units"
                             active={isActiveLink('units')}
                         />
+                        <NavLink
+                            color="dark"
+                            component={RouterNavLink}
+                            label="Project"
+                            to="community/project"
+                            active={isActiveLink('project')}
+                        />
                     </NavLink>
+
                     <NavLink
                         label="Facility Management"
                         icon={<IconAdjustmentsHorizontal size={24} stroke={1.5} />}
