@@ -86,6 +86,21 @@ export const DashboardNavbar = () => {
                         <NavLink
                             color="dark"
                             component={RouterNavLink}
+                            label="Booking unit"
+                            to="community/Booking-unit"
+                            active={isActiveLink('Booking-unit')}
+                        />
+                        <NavLink
+                            color="dark"
+                            component={RouterNavLink}
+                            label="Payment Method"
+                            to="community/PaymentMethod"
+                            active={isActiveLink('PaymentMethod')}
+                        />
+                         
+                        <NavLink
+                            color="dark"
+                            component={RouterNavLink}
                             label="Project"
                             to="community/project"
                             active={isActiveLink('project')}
