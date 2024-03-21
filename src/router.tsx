@@ -84,6 +84,11 @@ import { EditsNews } from './pages/SocialCommunication/EditsNews';
 import ProjectView from './pages/MyCommunity/ProjectView';
 import AddProject from './pages/MyCommunity/AddProject';
 import EditProject from './pages/MyCommunity/EditProject';
+import BookingTable from './pages/MyCommunity/BookingTable';
+import BookingTabs from './pages/MyCommunity/BookingTabs';
+import ViewPaymentMethod from './pages/MyCommunity/ViewPaymentMethod';
+import AddPaymentMethod from './pages/MyCommunity/AddPaymentMethod';
+
 
 
 interface ProfileData {
@@ -326,7 +331,34 @@ const router = createBrowserRouter([
                             },
                         ],
                     },
+                    
 
+{
+                        path: 'Booking-unit',
+                        children: [{
+                            path: '',
+                            element: <BookingTable />
+                        },
+                        {
+                            path: 'BookingTabs',
+                            element: <BookingTabs />
+                        },
+                        
+                        ]
+                    },
+                    {
+
+                        path: 'PaymentMethod',
+                        children: [{
+                            path: '',
+                            element: <ViewPaymentMethod />
+                        },
+                        {
+                            path: 'AddPaymentMethod',
+                            element: <AddPaymentMethod />
+                        },
+                        ]
+                    },
                     {
                         path: 'project',
                         children: [
